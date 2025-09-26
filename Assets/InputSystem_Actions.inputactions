@@ -1041,7 +1041,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "1D Axis",
+                    "name": "W/D",
                     "id": "d6af53a7-81aa-4aee-bdb4-e41acf992d12",
                     "path": "1DAxis",
                     "interactions": "",
@@ -1074,7 +1074,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "1D Axis",
+                    "name": "Keyboard Arrows",
                     "id": "873fd3d0-08df-4124-99a2-cd3fa2186c5a",
                     "path": "1DAxis",
                     "interactions": "",
@@ -1102,6 +1102,39 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
+                    "action": "Steer",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Mobile swipe",
+                    "id": "0c0239fb-b696-4689-bf27-195cca5005a9",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steer",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "9bb80ab3-8178-40a0-a007-cc5459e01cc0",
+                    "path": "<Touchscreen>/delta/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Touch",
+                    "action": "Steer",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "10f9cdda-c07e-4bb2-9feb-04539d8388c7",
+                    "path": "<Touchscreen>/delta/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Touch",
                     "action": "Steer",
                     "isComposite": false,
                     "isPartOfComposite": true
