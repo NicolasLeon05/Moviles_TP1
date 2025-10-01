@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ControladorDeDescarga : MonoBehaviour
 {
-    System.Collections.Generic.List<Pallet.Valores> Ps = new System.Collections.Generic.List<Pallet.Valores>();
+    System.Collections.Generic.List<Pallet.Valores> Ps = new();
 
     int Contador = 0;
 

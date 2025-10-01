@@ -1,10 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    //public static Player[] Jugadoers;
-
     public static GameManager Instancia;
 
     public float TiempoDeJuego = 60;
@@ -21,10 +20,8 @@ public class GameManager : MonoBehaviour
     //mueve los esqueletos para usar siempre los mismos
     public Transform Esqueleto1;
     public Transform Esqueleto2;
-    //public Vector3[] PosEsqsCalib;
     public Vector3[] PosEsqsCarrera;
 
-    bool PosSeteada = false;
 
     bool ConteoRedresivo = true;
     public Rect ConteoPosEsc;
@@ -48,25 +45,9 @@ public class GameManager : MonoBehaviour
     //escena de calibracion
     public GameObject[] ObjsCalibracion1;
     public GameObject[] ObjsCalibracion2;
-    //escena de tutorial
-    public GameObject[] ObjsTuto1;
-    public GameObject[] ObjsTuto2;
-    //la pista de carreras
+
     public GameObject[] ObjsCarrera;
     //de las descargas se encarga el controlador de descargas
-
-    //para saber que el los ultimos 5 o 10 segs se cambie de tamaño la font del tiempo
-    //bool SeteadoNuevaFontSize = false;
-    //int TamOrigFont = 75;
-    //int TamNuevoFont = 75;
-
-    /*
-	//para el testing
-	public float DistanciaRecorrida = 0;
-	public float TiempoTranscurrido = 0;
-	*/
-
-    IList<int> users;
 
     //--------------------------------------------------------//
 
@@ -157,18 +138,8 @@ public class GameManager : MonoBehaviour
                 {
                     FinalizarCarrera();
                 }
-
-                /*
-                //para testing
-                TiempoTranscurrido += T.GetDT();
-                DistanciaRecorrida += (Player1.transform.position - PosCamionesCarrera[0]).magnitude;
-                */
-
                 if (ConteoRedresivo)
                 {
-                    //se asegura de que los vehiculos se queden inmobiles
-                    //Player1.rigidbody.velocity = Vector3.zero;
-                    //Player2.rigidbody.velocity = Vector3.zero;
 
                     ConteoParaInicion -= T.GetDT();
                     if (ConteoParaInicion < 0)
@@ -185,15 +156,6 @@ public class GameManager : MonoBehaviour
                     {
                         //termina el juego
                     }
-                    /*
-                    //otro tamaño
-                    if(!SeteadoNuevaFontSize && TiempoDeJuego <= 5)
-                    {
-                        SeteadoNuevaFontSize = true;
-                        GS_TiempoGUI.box.fontSize = TamNuevoFont;
-                        GS_TiempoGUI.box.normal.textColor = Color.red;
-                    }
-                    */
                 }
 
                 break;
@@ -206,7 +168,7 @@ public class GameManager : MonoBehaviour
 
                 TiempEspMuestraPts -= Time.deltaTime;
                 if (TiempEspMuestraPts <= 0)
-                    Application.LoadLevel(Application.loadedLevel + 1);
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
                 break;
         }
@@ -258,12 +220,6 @@ public class GameManager : MonoBehaviour
             ObjsCalibracion2[i].SetActive(true);
         }
 
-        for (int i = 0; i < ObjsTuto2.Length; i++)
-        {
-            ObjsTuto2[i].SetActive(false);
-            ObjsTuto1[i].SetActive(false);
-        }
-
         for (int i = 0; i < ObjsCarrera.Length; i++)
         {
             ObjsCarrera[i].SetActive(false);
@@ -272,55 +228,6 @@ public class GameManager : MonoBehaviour
 
         Player1.CambiarACalibracion();
         Player2.CambiarACalibracion();
-    }
-
-    /*
-	public void CambiarADescarga(Player pj)
-	{
-		//en la escena de la pista, activa la camara y las demas propiedades 
-		//de la escena de descarga
-	}
-	
-	public void CambiarAPista(Player pj)//de descarga ala pista de vuelta
-	{
-		//lo mismo pero al revez
-	}
-	*/
-
-    void CambiarATutorial()
-    {
-        PlayerInfo1.FinCalibrado = true;
-
-        for (int i = 0; i < ObjsTuto1.Length; i++)
-        {
-            ObjsTuto1[i].SetActive(true);
-        }
-
-        for (int i = 0; i < ObjsCalibracion1.Length; i++)
-        {
-            ObjsCalibracion1[i].SetActive(false);
-        }
-        Player1.GetComponent<Frenado>().Frenar();
-        Player1.CambiarATutorial();
-        Player1.gameObject.transform.position = PosCamion1Tuto;//posiciona el camion
-        Player1.transform.forward = Vector3.forward;
-
-
-        PlayerInfo2.FinCalibrado = true;
-
-        for (int i = 0; i < ObjsCalibracion2.Length; i++)
-        {
-            ObjsCalibracion2[i].SetActive(false);
-        }
-
-        for (int i = 0; i < ObjsTuto2.Length; i++)
-        {
-            ObjsTuto2[i].SetActive(true);
-        }
-        Player2.GetComponent<Frenado>().Frenar();
-        Player2.gameObject.transform.position = PosCamion2Tuto;
-        Player2.CambiarATutorial();
-        Player2.transform.forward = Vector3.forward;
     }
 
     void EmpezarCarrera()
@@ -370,30 +277,12 @@ public class GameManager : MonoBehaviour
         Player2.ContrDesc.FinDelJuego();
     }
 
-    /*
-	public static ControladorDeDescarga GetContrDesc(int pjID)
-	{
-		switch (pjID)
-		{
-		case 1:
-			return ContrDesc1;
-			break;
-			
-		case 2:
-			return ContrDesc2;
-			break;
-		}
-		return null;
-	}*/
-
     //se encarga de posicionar la camara derecha para el jugador que esta a la derecha y viseversa
     void SetPosicion(PlayerInfo pjInf)
     {
         pjInf.PJ.GetComponent<Visualizacion>().SetLado(pjInf.LadoAct);
         //en este momento, solo la primera vez, deberia setear la otra camara asi no se superponen
         pjInf.PJ.ContrCalib.IniciarTesteo();
-        PosSeteada = true;
-
 
         if (pjInf.PJ == Player1)
         {
@@ -424,22 +313,8 @@ public class GameManager : MonoBehaviour
             ObjsCarrera[i].SetActive(true);
         }
 
-        /*
-		for(int i = 0; i < ObjsTuto1.Length; i++)
-		{
-			ObjsTuto1[i].SetActive(false);
-			ObjsTuto2[i].SetActive(false);
-		}
-		*/
-
-
         //desactivacion de la calibracion
         PlayerInfo1.FinCalibrado = true;
-
-        for (int i = 0; i < ObjsTuto1.Length; i++)
-        {
-            ObjsTuto1[i].SetActive(true);
-        }
 
         for (int i = 0; i < ObjsCalibracion1.Length; i++)
         {
@@ -452,12 +327,6 @@ public class GameManager : MonoBehaviour
         {
             ObjsCalibracion2[i].SetActive(false);
         }
-
-        for (int i = 0; i < ObjsTuto2.Length; i++)
-        {
-            ObjsTuto2[i].SetActive(true);
-        }
-
 
 
 

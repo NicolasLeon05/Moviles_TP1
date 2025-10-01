@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class JuegoEscMgr : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class JuegoEscMgr : MonoBehaviour
             if (Tempo > TiempoEsperaFin)
             {
                 Tempo = 0;
-                Application.LoadLevel(0);
+                SceneManager.LoadScene(0);
                 //Reemplazar por un scene manager
             }
         }
@@ -31,7 +32,7 @@ public class JuegoEscMgr : MonoBehaviour
             if (Tempo > TiempoEsperaInicio)
             {
                 Tempo2 = 0;
-                Application.LoadLevel(0);
+                SceneManager.LoadScene(0);
                 //Reemplazar por un scene manager
             }
         }

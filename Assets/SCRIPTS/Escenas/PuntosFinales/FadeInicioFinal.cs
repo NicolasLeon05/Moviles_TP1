@@ -16,7 +16,7 @@ public class FadeInicioFinal : MonoBehaviour
     void Start()
     {
         //renderer.material = IniFin;
-        Mng = (MngPts)GameObject.FindObjectOfType(typeof(MngPts));
+        Mng = (MngPts)FindAnyObjectByType(typeof(MngPts));
         TiempInicial = Mng.TiempEspReiniciar;
 
         aux = GetComponent<Renderer>().material.color;

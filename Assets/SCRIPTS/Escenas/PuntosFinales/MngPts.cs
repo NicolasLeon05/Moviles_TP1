@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MngPts : MonoBehaviour
 {
@@ -6,8 +7,6 @@ public class MngPts : MonoBehaviour
 
     public float TiempEmpAnims = 2.5f;
     float Tempo = 0;
-
-    int IndexGanador = 0;
 
     public Vector2[] DineroPos;
     public Vector2 DineroEsc;
@@ -47,7 +46,7 @@ public class MngPts : MonoBehaviour
            Input.GetKeyDown(KeyCode.Return) ||
            Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Application.LoadLevel(0);
+            SceneManager.LoadScene(0);
         }
 
         //REINICIAR
@@ -66,14 +65,14 @@ public class MngPts : MonoBehaviour
         //CALIBRACION DEL KINECT
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-            Application.LoadLevel(3);
+            SceneManager.LoadScene(3);
         }
 
 
         TiempEspReiniciar -= Time.deltaTime;
         if (TiempEspReiniciar <= 0)
         {
-            Application.LoadLevel(0);
+            SceneManager.LoadScene(0);
         }
 
 
@@ -112,15 +111,6 @@ public class MngPts : MonoBehaviour
 
     }
 
-    /*
-	void OnGUI()
-	{
-		SetGUIGanador();
-		SetGUIPerdedor();
-		GUI.skin = null;
-	}
-	*/
-
     void OnGUI()
     {
         if (ActivadoAnims)
@@ -133,41 +123,6 @@ public class MngPts : MonoBehaviour
     }
 
     //---------------------------------//
-
-    /*
-	void SetGUIGanador()
-	{
-		GUI.skin = GS_Vict;
-		
-		R.width = ScoreEsc.x * Screen.width /100;
-		R.height = ScoreEsc.y * Screen.height /100;
-		
-		R.x = ScorePos.x * Screen.width / 100;
-		R.y = ScorePos.y * Screen.height / 100;
-		
-		if(DatosPartida.LadoGanadaor == DatosPartida.Lados.Der)
-			R.x = (Screen.width) - R.x - R.width;
-		
-		GUI.Box(R, "GANADOR" + '\n' + "DINERO: " + DatosPartida.PtsGanador);
-		
-	}
-	
-	void SetGUIPerdedor()
-	{
-		GUI.skin = GS_Derr;
-		
-		R.width = ScoreEsc.x * Screen.width /100;
-		R.height = ScoreEsc.y * Screen.height /100;
-		
-		R.x = ScorePos.x * Screen.width / 100;
-		R.y = ScorePos.y * Screen.height / 100;
-		
-		if(DatosPartida.LadoGanadaor == DatosPartida.Lados.Izq)
-			R.x = (Screen.width) - R.x - R.width;
-		
-		GUI.Box(R, "PERDEDOR" + '\n' + "DINERO: " + DatosPartida.PtsPerdedor);
-	}
-	*/
 
     void SetGanador()
     {
@@ -237,7 +192,6 @@ public class MngPts : MonoBehaviour
         R.x = GanadorPos.x * Screen.width / 100;
         R.y = GanadorPos.y * Screen.height / 100;
 
-        //if(PrimerImaParp)//para que parpadee
         GUI.Box(R, "");
     }
 

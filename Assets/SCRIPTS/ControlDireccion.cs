@@ -17,7 +17,6 @@ public class ControlDireccion : MonoBehaviour
         carController = GetComponent<CarController>();
         playerInput = GetComponent<PlayerInput>();
 
-        // Busca la acción "Steer" en el mapa "Driving"
         steerAction = playerInput.actions["Steer"];
     }
 
@@ -37,7 +36,6 @@ public class ControlDireccion : MonoBehaviour
             return;
 
         giro = steerAction.ReadValue<float>();
-
         carController.SetGiro(giro);
     }
 
