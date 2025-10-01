@@ -1008,39 +1008,6 @@
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "5cb7109a-07bc-4dce-ba4b-ff8453761faf",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Steer",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4c8d16d1-a8c2-4e63-8606-2ea561b78806",
-                    "path": "<Gamepad>/dpad",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Steer",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0f1319c0-43cc-4b45-a24b-f6bb0790020d",
-                    "path": "<Joystick>/stick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Joystick",
-                    "action": "Steer",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "W/D",
                     "id": "d6af53a7-81aa-4aee-bdb4-e41acf992d12",
                     "path": "1DAxis",
@@ -1138,6 +1105,105 @@
                     "action": "Steer",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "24e63e9a-9a88-429f-90dc-c340c8c061d5",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steer",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "76ccf3de-8495-4723-aade-8ef051199735",
+                    "path": "<Joystick>/stick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steer",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "97bd6c92-52e6-4a11-b8dd-c61930ea8b38",
+                    "path": "<Joystick>/stick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steer",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "39cc2fe4-5d15-42d5-a4bb-1aa5c339ee97",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steer",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "69d85d8b-90af-483c-83fa-b53323bdd1fb",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steer",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "3130118d-f8da-4a0f-bcf9-c153564cd90c",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steer",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "b9ca51d1-b61d-4b7a-b998-70fd76d42ec7",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steer",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "cdb5e627-eba2-4bb7-99bb-7ee0b34ea47b",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steer",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "7dfadc12-c0d9-4cd8-8fe7-a1d8d4d4b2d5",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steer",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },
@@ -1176,6 +1242,17 @@
             "bindings": [
                 {
                     "name": "",
+                    "id": "e4b954a1-910f-4527-925a-5ac3ff090d11",
+                    "path": "<Joystick>/stick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Joystick",
+                    "action": "First",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "45ea666e-f12b-4859-81d4-c69b8e148073",
                     "path": "<Keyboard>/a",
                     "interactions": "",
@@ -1192,17 +1269,6 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "First",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e4b954a1-910f-4527-925a-5ac3ff090d11",
-                    "path": "<Joystick>/stick/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Joystick",
                     "action": "First",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1242,8 +1308,19 @@
                 },
                 {
                     "name": "",
+                    "id": "5a24a302-100d-4a1e-a681-3b2c6c6e5019",
+                    "path": "<Joystick>/stick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Joystick",
+                    "action": "Second",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ea1dd6a3-6325-48ae-b3f2-ffdee8e3eeef",
-                    "path": "<Keyboard>/#(S)",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
@@ -1258,17 +1335,6 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Second",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5a24a302-100d-4a1e-a681-3b2c6c6e5019",
-                    "path": "<Joystick>/stick/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Joystick",
                     "action": "Second",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1308,6 +1374,17 @@
                 },
                 {
                     "name": "",
+                    "id": "d92a44fc-98be-42c8-8eb9-a9bb0a0baa4e",
+                    "path": "<Joystick>/stick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Joystick",
+                    "action": "Third",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5182004d-76dd-44ad-8939-5a1d7fae75cc",
                     "path": "<Keyboard>/d",
                     "interactions": "",
@@ -1324,17 +1401,6 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Third",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d92a44fc-98be-42c8-8eb9-a9bb0a0baa4e",
-                    "path": "<Joystick>/stick/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Joystick",
                     "action": "Third",
                     "isComposite": false,
                     "isPartOfComposite": false

@@ -1,55 +1,65 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PalletMover : ManejoPallets
 {
+    private PlayerInput playerInput;
 
-    public MoveType miInput;
-    public enum MoveType
-    {
-        WASD,
-        Arrows
-    }
+    private InputAction firstAction;
+    private InputAction secondAction;
+    private InputAction thirdAction;
 
     public ManejoPallets Desde, Hasta;
     bool segundoCompleto = false;
 
-    private void Update()
+    private void Awake()
     {
-        switch (miInput)
-        {
-            case MoveType.WASD:
-                if (!Tenencia() && Desde.Tenencia() && Input.GetKeyDown(KeyCode.A))
-                {
-                    PrimerPaso();
-                }
-                if (Tenencia() && Input.GetKeyDown(KeyCode.S))
-                {
-                    SegundoPaso();
-                }
-                if (segundoCompleto && Tenencia() && Input.GetKeyDown(KeyCode.D))
-                {
-                    TercerPaso();
-                }
-                break;
-            case MoveType.Arrows:
-                if (!Tenencia() && Desde.Tenencia() && Input.GetKeyDown(KeyCode.LeftArrow))
-                {
-                    PrimerPaso();
-                }
-                if (Tenencia() && Input.GetKeyDown(KeyCode.DownArrow))
-                {
-                    SegundoPaso();
-                }
-                if (segundoCompleto && Tenencia() && Input.GetKeyDown(KeyCode.RightArrow))
-                {
-                    TercerPaso();
-                }
-                break;
-            default:
-                break;
-        }
+        playerInput = GetComponent<PlayerInput>();
+        var actions = playerInput.actions;
+
+        firstAction = actions["First"];
+        secondAction = actions["Second"];
+        thirdAction = actions["Third"];
+    }
+
+    private void OnEnable()
+    {
+        firstAction.performed += OnFirst;
+        secondAction.performed += OnSecond;
+        thirdAction.performed += OnThird;
+
+        firstAction.Enable();
+        secondAction.Enable();
+        thirdAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        firstAction.performed -= OnFirst;
+        secondAction.performed -= OnSecond;
+        thirdAction.performed -= OnThird;
+
+        firstAction.Disable();
+        secondAction.Disable();
+        thirdAction.Disable();
+    }
+
+    private void OnFirst(InputAction.CallbackContext ctx)
+    {
+        if (!Tenencia() && Desde.Tenencia())
+            PrimerPaso();
+    }
+
+    private void OnSecond(InputAction.CallbackContext ctx)
+    {
+        if (Tenencia())
+            SegundoPaso();
+    }
+
+    private void OnThird(InputAction.CallbackContext ctx)
+    {
+        if (segundoCompleto && Tenencia())
+            TercerPaso();
     }
 
     void PrimerPaso()
@@ -57,11 +67,13 @@ public class PalletMover : ManejoPallets
         Desde.Dar(this);
         segundoCompleto = false;
     }
+
     void SegundoPaso()
     {
         base.Pallets[0].transform.position = transform.position;
         segundoCompleto = true;
     }
+
     void TercerPaso()
     {
         Dar(Hasta);
@@ -73,11 +85,10 @@ public class PalletMover : ManejoPallets
         if (Tenencia())
         {
             if (receptor.Recibir(Pallets[0]))
-            {
                 Pallets.RemoveAt(0);
-            }
         }
     }
+
     public override bool Recibir(Pallet pallet)
     {
         if (!Tenencia())
@@ -86,7 +97,6 @@ public class PalletMover : ManejoPallets
             base.Recibir(pallet);
             return true;
         }
-        else
-            return false;
+        return false;
     }
 }
