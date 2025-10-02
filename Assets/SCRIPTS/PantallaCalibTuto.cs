@@ -1,62 +1,41 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PantallaCalibTuto : MonoBehaviour
+public class PantallaCalibTutoUI : MonoBehaviour
 {
-    public Texture2D[] ImagenesDelTuto;
-    public float Intervalo = 1.2f;//tiempo de cada cuanto cambia de imagen
-    float TempoIntTuto = 0;
-    int EnCursoTuto = 0;
+    public Sprite[] ImagenesDelTuto;  // ahora son Sprites
+    public float Intervalo = 1.2f;
 
-    //public Texture2D[] ImagenesDeCalib;
-    //int EnCursoCalib = 0;
-    //float TempoIntCalib = 0;
+    private float tempoIntTuto = 0;
+    private int enCursoTuto = 0;
 
-    public Texture2D ImaReady;
-
+    public Sprite ImaReady;
     public ContrCalibracion ContrCalib;
 
-    // Update is called once per frame
+    private Image uiImage;  // referencia al componente UI Image
+
+    void Start()
+    {
+        uiImage = GetComponent<Image>();
+    }
+
     void Update()
     {
         switch (ContrCalib.EstAct)
         {
-            //case ContrCalibracion.Estados.Calibrando:
-            //    //pongase en posicion para iniciar
-            //    TempoIntCalib += T.GetDT();
-            //    if (TempoIntCalib >= Intervalo)
-            //    {
-            //        TempoIntCalib = 0;
-            //        if (EnCursoCalib + 1 < ImagenesDeCalib.Length)
-            //            EnCursoCalib++;
-            //        else
-            //            EnCursoCalib = 0;
-            //    }
-            //    GetComponent<Renderer>().material.mainTexture = ImagenesDeCalib[EnCursoCalib];
-            //
-            //    break;
-
             case ContrCalibracion.Estados.Tutorial:
-                //tome la bolsa y depositela en el estante
-                TempoIntTuto += T.GetDT();
-                if (TempoIntTuto >= Intervalo)
+                tempoIntTuto += Time.deltaTime;
+                if (tempoIntTuto >= Intervalo)
                 {
-                    TempoIntTuto = 0;
-                    if (EnCursoTuto + 1 < ImagenesDelTuto.Length)
-                        EnCursoTuto++;
-                    else
-                        EnCursoTuto = 0;
+                    tempoIntTuto = 0;
+                    enCursoTuto = (enCursoTuto + 1) % ImagenesDelTuto.Length;
                 }
-                GetComponent<Renderer>().material.mainTexture = ImagenesDelTuto[EnCursoTuto];
-
+                uiImage.sprite = ImagenesDelTuto[enCursoTuto];
                 break;
 
             case ContrCalibracion.Estados.Finalizado:
-                //esperando al otro jugador		
-                GetComponent<Renderer>().material.mainTexture = ImaReady;
-
+                uiImage.sprite = ImaReady;
                 break;
         }
-
-
     }
 }
