@@ -17,11 +17,6 @@ public class GameManager : MonoBehaviour
     public Player Player1;
     public Player Player2;
 
-    //mueve los esqueletos para usar siempre los mismos
-    public Transform Esqueleto1;
-    public Transform Esqueleto2;
-
-
     bool ConteoRedresivo = true;
     public Rect ConteoPosEsc;
     public float ConteoParaInicion = 3;

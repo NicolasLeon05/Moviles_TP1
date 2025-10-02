@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 /// <summary>
 /// clase encargada de TODA la visualizacion
@@ -37,12 +36,6 @@ public class Visualizacion : MonoBehaviour
     public Vector2[] FondoPos;
     public Vector2 FondoEsc = Vector2.zero;
 
-    //public Vector2 SlotsEsc = Vector2.zero;
-    //public Vector2 SlotPrimPos = Vector2.zero;
-    //public Vector2 Separacion = Vector2.zero;
-
-    //public int Fil = 0;
-    //public int Col = 0;
 
     public Texture2D TexturaVacia;//lo que aparece si no hay ninguna bolsa
     public Texture2D TextFondo;
@@ -77,8 +70,6 @@ public class Visualizacion : MonoBehaviour
     public Vector2 ReadyEsc = Vector2.zero;
     public Texture2D[] ImagenesDelTuto;
     public float Intervalo = 0.8f;//tiempo de cada cuanto cambia de imagen
-    float TempoIntTuto = 0;
-    int EnCurso = -1;
     public Texture2D ImaEnPosicion;
     public Texture2D ImaReady;
     public GUISkin GS_TutoCalib;
@@ -88,9 +79,6 @@ public class Visualizacion : MonoBehaviour
     public Texture2D TextNum2;
     public GameObject Techo;
 
-
-
-
     Rect R;
 
     //------------------------------------------------------------------//
@@ -98,7 +86,6 @@ public class Visualizacion : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        TempoIntTuto = Intervalo;
         Direccion = GetComponent<ControlDireccion>();
         Pj = GetComponent<Player>();
     }
@@ -120,7 +107,6 @@ public class Visualizacion : MonoBehaviour
                 break;
 
 
-
             case Player.Estados.EnDescarga:
                 //inventario
                 SetInv3();
@@ -128,11 +114,6 @@ public class Visualizacion : MonoBehaviour
                 SetBonus();
                 //contador de dinero
                 SetDinero();
-                break;
-
-
-            case Player.Estados.EnCalibracion:
-                //SetCalibr();
                 break;
 
 
@@ -203,7 +184,7 @@ public class Visualizacion : MonoBehaviour
         CamConduccion.rect = r;
         CamDescarga.rect = r;
 
-        if (LadoAct == Visualizacion.Lado.Izq)
+        if (LadoAct == Lado.Izq)
         {
             Techo.GetComponent<Renderer>().material.mainTexture = TextNum1;
         }
@@ -224,7 +205,7 @@ public class Visualizacion : MonoBehaviour
             R.height = ColorFondoFondoEsc.y * Screen.height / 100;
             R.x = ColorFondoFondoPos.x * Screen.width / 100;
             R.y = ColorFondoFondoPos.y * Screen.height / 100;
-            if (LadoAct == Visualizacion.Lado.Der)
+            if (LadoAct == Lado.Der)
                 R.x += (Screen.width) / 2;
             GUI.Box(R, "");
 
@@ -236,7 +217,7 @@ public class Visualizacion : MonoBehaviour
             R.height = (ColorFondoEsc.y * Screen.height / 100) * (Pj.ContrDesc.Bonus / (int)Pallet.Valores.Valor2);
             R.x = ColorFondoPos.x * Screen.width / 100;
             R.y = (ColorFondoPos.y * Screen.height / 100) - R.height;
-            if (LadoAct == Visualizacion.Lado.Der)
+            if (LadoAct == Lado.Der)
                 R.x += (Screen.width) / 2;
             GUI.Box(R, "");
 
@@ -248,7 +229,7 @@ public class Visualizacion : MonoBehaviour
             R.height = R.width / 2;
             R.x = BonusPos.x * Screen.width / 100;
             R.y = BonusPos.y * Screen.height / 100;
-            if (LadoAct == Visualizacion.Lado.Der)
+            if (LadoAct == Lado.Der)
                 R.x += (Screen.width) / 2;
             GUI.Box(R, "     $" + Pj.ContrDesc.Bonus.ToString("0"));
         }
@@ -262,59 +243,11 @@ public class Visualizacion : MonoBehaviour
         R.height = DinEsc.y * Screen.height / 100;
         R.x = DinPos[0].x * Screen.width / 100;
         R.y = DinPos[0].y * Screen.height / 100;
-        if (LadoAct == Visualizacion.Lado.Der)
+        if (LadoAct == Lado.Der)
             R.x = DinPos[1].x * Screen.width / 100;
-        //R.x = (Screen.width) - (Screen.width/2) - R.x;
         GUI.Box(R, "$" + PrepararNumeros(Pj.Dinero));
     }
 
-    void SetCalibr()
-    {
-        GUI.skin = GS_TutoCalib;
-
-        R.width = ReadyEsc.x * Screen.width / 100;
-        R.height = ReadyEsc.y * Screen.height / 100;
-        R.x = ReadyPos.x * Screen.width / 100;
-        R.y = ReadyPos.y * Screen.height / 100;
-        if (LadoAct == Visualizacion.Lado.Der)
-            R.x = (Screen.width) - R.x - R.width;
-
-        switch (Pj.ContrCalib.EstAct)
-        {
-            //case ContrCalibracion.Estados.Calibrando:
-            //
-            //    //pongase en posicion para iniciar
-            //    GS_TutoCalib.box.normal.background = ImaEnPosicion;
-            //    GUI.Box(R, "");
-            //
-            //    break;
-
-            case ContrCalibracion.Estados.Tutorial:
-                //tome la bolsa y depositela en el estante
-
-                TempoIntTuto += T.GetDT();
-                if (TempoIntTuto >= Intervalo)
-                {
-                    TempoIntTuto = 0;
-                    if (EnCurso + 1 < ImagenesDelTuto.Length)
-                        EnCurso++;
-                    else
-                        EnCurso = 0;
-                }
-                GS_TutoCalib.box.normal.background = ImagenesDelTuto[EnCurso];
-
-                GUI.Box(R, "");
-
-                break;
-
-            case ContrCalibracion.Estados.Finalizado:
-                //esperando al otro jugador		
-                GS_TutoCalib.box.normal.background = ImaReady;
-                GUI.Box(R, "");
-
-                break;
-        }
-    }
 
     void SetTuto()
     {
@@ -326,59 +259,12 @@ public class Visualizacion : MonoBehaviour
             R.height = ReadyEsc.y * Screen.height / 100;
             R.x = ReadyPos.x * Screen.width / 100;
             R.y = ReadyPos.y * Screen.height / 100;
-            if (LadoAct == Visualizacion.Lado.Der)
+            if (LadoAct == Lado.Der)
                 R.x = (Screen.width) - R.x - R.width;
 
             GUI.Box(R, "ESPERANDO AL OTRO JUGADOR");
         }
     }
-
-    /*
-	void SetInv()
-	{
-		GUI.skin = GS_Inv;
-		
-		//fondo
-		GS_Inv.box.normal.background = TextFondo;
-		R.width = FondoEsc.x * Screen.width /100;
-		R.height = FondoEsc.y * Screen.height /100;
-		R.x = FondoPos.x * Screen.width /100;
-		R.y = FondoPos.y * Screen.height /100;
-		if(LadoAct == Visualizacion.Lado.Der)
-			R.x = (Screen.width) - R.x - R.width;
-		GUI.Box(R,"");
-		
-		//bolsas
-		R.width = SlotsEsc.x * Screen.width /100;
-		R.height = SlotsEsc.y * Screen.height /100;
-		int contador = 0;
-		for(int j = 0; j < Fil; j++)
-		{
-			for(int i = 0; i < Col; i++)
-			{
-				R.x = SlotPrimPos.x * Screen.width / 100 + Separacion.x * i * Screen.width / 100;
-				R.y = SlotPrimPos.y * Screen.height / 100 + Separacion.y * j * Screen.height / 100;
-				if(LadoAct == Visualizacion.Lado.Der)
-					R.x = (Screen.width) - R.x - R.width;
-				
-				if(contador < Pj.Bolasas.Length )//&& Pj.Bolasas[contador] != null)
-				{
-					if(Pj.Bolasas[contador]!=null)
-						GS_Inv.box.normal.background = Pj.Bolasas[contador].ImagenInventario;
-					else
-						GS_Inv.box.normal.background = TexturaVacia;				
-				}
-				else
-				{
-					GS_Inv.box.normal.background = TexturaVacia;
-				}
-				GUI.Box(R,"");
-				
-				contador++;
-			}
-		}
-	}
-	*/
 
     void SetVolante()
     {
@@ -389,9 +275,8 @@ public class Visualizacion : MonoBehaviour
         R.x = VolantePos[0].x * Screen.width / 100;
         R.y = VolantePos[0].y * Screen.height / 100;
 
-        if (LadoAct == Visualizacion.Lado.Der)
+        if (LadoAct == Lado.Der)
             R.x = VolantePos[1].x * Screen.width / 100;
-        //R.x = (Screen.width) - ((Screen.width/2) - R.x);
 
         Vector2 centro;
         centro.x = R.x + R.width / 2;
