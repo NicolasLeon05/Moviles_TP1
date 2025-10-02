@@ -7,8 +7,8 @@ public class ContrCalibracion : MonoBehaviour
     float Tempo2 = 0;
 
 
-    public enum Estados { Calibrando, Tutorial, Finalizado }
-    public Estados EstAct = Estados.Calibrando;
+    public enum Estados { /*Calibrando,*/ Tutorial, Finalizado }
+    public Estados EstAct = Estados.Tutorial;
 
     public ManejoPallets Partida;
     public ManejoPallets Llegada;

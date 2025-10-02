@@ -281,13 +281,13 @@ public class Visualizacion : MonoBehaviour
 
         switch (Pj.ContrCalib.EstAct)
         {
-            case ContrCalibracion.Estados.Calibrando:
-
-                //pongase en posicion para iniciar
-                GS_TutoCalib.box.normal.background = ImaEnPosicion;
-                GUI.Box(R, "");
-
-                break;
+            //case ContrCalibracion.Estados.Calibrando:
+            //
+            //    //pongase en posicion para iniciar
+            //    GS_TutoCalib.box.normal.background = ImaEnPosicion;
+            //    GUI.Box(R, "");
+            //
+            //    break;
 
             case ContrCalibracion.Estados.Tutorial:
                 //tome la bolsa y depositela en el estante
