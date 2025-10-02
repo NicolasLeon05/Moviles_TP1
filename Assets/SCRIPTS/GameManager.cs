@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
     //mueve los esqueletos para usar siempre los mismos
     public Transform Esqueleto1;
     public Transform Esqueleto2;
-    public Vector3[] PosEsqsCarrera;
 
 
     bool ConteoRedresivo = true;
@@ -59,10 +58,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         IniciarCalibracion();
-
-        //para testing
-        //PosCamionesCarrera[0].x+=100;
-        //PosCamionesCarrera[1].x+=100;
     }
 
     void Update()
@@ -304,9 +299,6 @@ public class GameManager : MonoBehaviour
     void CambiarACarrera()
     {
         //Debug.Log("CambiarACarrera()");
-
-        Esqueleto1.transform.position = PosEsqsCarrera[0];
-        Esqueleto2.transform.position = PosEsqsCarrera[1];
 
         for (int i = 0; i < ObjsCarrera.Length; i++)
         {
