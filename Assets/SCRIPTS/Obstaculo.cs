@@ -12,12 +12,6 @@ public class Obstaculo : MonoBehaviour
     bool Chocado = false;
     bool Desapareciendo = false;
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {

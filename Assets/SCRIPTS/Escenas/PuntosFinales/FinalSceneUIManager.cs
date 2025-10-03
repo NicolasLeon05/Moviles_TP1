@@ -31,8 +31,10 @@ public class FinalSceneUIManager : MonoBehaviour
     {
         if (restartDelay <= 0)
         {
-            SceneController.Instance.LoadLevel(SceneController.Instance.levels[0]);
-            GameManager.Instancia.ResetGame();
+            GameEvents.TriggerShowCredits();
+            OldGameManager.Instancia.ResetGame();
+            //Debug.Log("Restart entered");
+            //SceneController.Instance.LoadLevel(SceneController.Instance.levels[0]);
         }
 
 

@@ -23,6 +23,8 @@ public class FadeInicioFinal : MonoBehaviour
 
     void Update()
     {
+        mng.restartDelay -= Time.deltaTime;
+
         if (mng.restartDelay > tiempInicial - DuracionFade) // Fading In (aparece desde negro)
         {
             aux = fadeImage.color;

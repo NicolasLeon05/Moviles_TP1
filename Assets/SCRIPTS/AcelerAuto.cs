@@ -16,15 +16,6 @@ public class AcelerAuto : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-		if(Velocidad < VelMax)
-		{
-			Velocidad += AcelPorSeg * Time.deltaTime;
-		}
-		*/
-
-        //Debug.Log("Velocidad: "+rigidbody.velocity.magnitude);
-
         if (Avil)
         {
             Tempo += Time.deltaTime;
@@ -38,22 +29,6 @@ public class AcelerAuto : MonoBehaviour
 
     void FixedUpdate()
     {
-        /*
-		//this.rigidbody.MovePosition(this.transform.position + this.transform.forward * Velocidad);
-		if(rigidbody.velocity.magnitude < VelMax)
-			rigidbody.velocity += transform.forward * AcelPorSeg * Time.deltaTime;
-			*/
-
-
-        /*
-		if(Velocidad < VelMax)
-		{
-			Velocidad += AcelPorSeg * Time.fixedDeltaTime;
-		}
-		
-		rigidbody.MovePosition(this.transform.position + this.transform.forward * Velocidad);
-		*/
-
         if (Velocidad < VelMax)
         {
             Velocidad += AcelPorSeg * Time.fixedDeltaTime;
@@ -69,12 +44,6 @@ public class AcelerAuto : MonoBehaviour
             Obstaculo = collision.transform.GetComponent<ReductorVelColl>();
             if (Obstaculo != null)
             {
-
-                //Velocidad -= Obstaculo.ReduccionVel;
-
-                //if(Velocidad < 0)
-                //Velocidad = 0;
-
                 GetComponent<Rigidbody>().linearVelocity /= 2;
             }
             Obstaculo = null;

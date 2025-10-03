@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a2f0e804418eb4993837906636e1a1, type: 3}
   m_Name: PtsFinal
   m_EditorClassIdentifier: 
-  _index: 2
+  _index: 3
   _isActive: 1
   _isPersistent: 0

@@ -4,10 +4,9 @@ public class ContrCalibracion : MonoBehaviour
 {
     public Player Pj;
     public float TiempEspCalib = 3;
-    float Tempo2 = 0;
+    private float tempo = 0;
 
-
-    public enum Estados { /*Calibrando,*/ Tutorial, Finalizado }
+    public enum Estados { Tutorial, Finalizado }
     public Estados EstAct = Estados.Tutorial;
 
     public ManejoPallets Partida;
@@ -15,33 +14,28 @@ public class ContrCalibracion : MonoBehaviour
     public Pallet P;
     public ManejoPallets palletsMover;
 
-    GameManager GM;
-
     //----------------------------------------------------//
 
-    // Use this for initialization
     void Start()
     {
         palletsMover.enabled = false;
         Pj.ContrCalib = this;
 
-        GM = GameObject.Find("GameMgr").GetComponent<GameManager>();
-
+        // Preparar pallet inicial
         P.CintaReceptora = Llegada.gameObject;
         Partida.Recibir(P);
 
         SetActivComp(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (EstAct == Estados.Tutorial)
         {
-            if (Tempo2 < TiempEspCalib)
+            if (tempo < TiempEspCalib)
             {
-                Tempo2 += T.GetDT();
-                if (Tempo2 > TiempEspCalib)
+                tempo += Time.deltaTime;
+                if (tempo > TiempEspCalib)
                 {
                     SetActivComp(true);
                 }
@@ -53,30 +47,26 @@ public class ContrCalibracion : MonoBehaviour
     {
         EstAct = Estados.Tutorial;
         palletsMover.enabled = true;
-        palletsMover.enabled = true;
     }
 
     public void FinTutorial()
     {
         EstAct = Estados.Finalizado;
         palletsMover.enabled = false;
-        GM.FinCalibracion(Pj.IdPlayer);
+
+        GameManager.Instance.FinCalibracion(Pj.IdPlayer);
     }
 
     void SetActivComp(bool estado)
     {
         if (Partida.GetComponent<Renderer>() != null)
-        {
             Partida.GetComponent<Renderer>().enabled = estado;
-        }
         Partida.GetComponent<Collider>().enabled = estado;
 
-
         if (Llegada.GetComponent<Renderer>() != null)
-        {
             Llegada.GetComponent<Renderer>().enabled = estado;
-        }
         Llegada.GetComponent<Collider>().enabled = estado;
+
         P.GetComponent<Renderer>().enabled = estado;
     }
 }

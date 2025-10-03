@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     public ContrCalibracion ContrCalib;
     //public ContrTutorial ContrTuto;
 
-    Visualizacion MiVisualizacion;
+    //Visualizacion MiVisualizacion;
 
     //------------------------------------------------------------------//
 
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
         for (int i = 0; i < Bolasas.Length; i++)
             Bolasas[i] = null;
 
-        MiVisualizacion = GetComponent<Visualizacion>();
+        //MiVisualizacion = GetComponent<Visualizacion>();
     }
 
     // Update is called once per frame
@@ -89,28 +89,52 @@ public class Player : MonoBehaviour
 
     public void CambiarACalibracion()
     {
-        MiVisualizacion.CambiarACalibracion();
         EstAct = Estados.EnCalibracion;
+
+        // deshabilitar controles de conducción
+        var dir = GetComponent<ControlDireccion>();
+        if (dir != null)
+            dir.habilitado = false;
+
+        var acel = GetComponent<Aceleracion>();
+        if (acel != null)
+            acel.enabled = false;
+
+        if (ContrCalib != null)
+            ContrCalib.IniciarTesteo();
     }
 
-    //public void CambiarATutorial()
-    //{
-    //    MiVisualizacion.CambiarATutorial();
-    //    EstAct = Estados.EnTutorial;
-    //    ContrTuto.Iniciar();
-    //}
 
     public void CambiarAConduccion()
     {
-        MiVisualizacion.CambiarAConduccion();
         EstAct = Estados.EnConduccion;
+
+        // habilitar controles de manejo
+        var dir = GetComponent<ControlDireccion>();
+        if (dir != null)
+            dir.habilitado = true;
+
+        var acel = GetComponent<Aceleracion>();
+        if (acel != null)
+            acel.enabled = true;
     }
 
     public void CambiarADescarga()
     {
-        MiVisualizacion.CambiarADescarga();
         EstAct = Estados.EnDescarga;
+
+        var dir = GetComponent<ControlDireccion>();
+        if (dir != null)
+            dir.habilitado = false;
+
+        var acel = GetComponent<Aceleracion>();
+        if (acel != null)
+            acel.enabled = false;
+
+        if (ContrDesc != null)
+            ContrDesc.enabled = true;
     }
+
 
     public void SacarBolasa()
     {
@@ -123,6 +147,4 @@ public class Player : MonoBehaviour
             }
         }
     }
-
-
 }

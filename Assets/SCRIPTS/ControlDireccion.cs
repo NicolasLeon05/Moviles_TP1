@@ -18,8 +18,8 @@ public class ControlDireccion : MonoBehaviour
 
     private void TryInit()
     {
-        if (actions == null && GameManager.Instancia != null)
-            actions = GameManager.Instancia.actions;
+        if (actions == null && GameManager.Instance != null)
+            actions = GameManager.Instance.actions;
     }
 
     private void Update()
