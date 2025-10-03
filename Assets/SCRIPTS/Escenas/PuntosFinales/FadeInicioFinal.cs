@@ -1,51 +1,48 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FadeInicioFinal : MonoBehaviour
 {
-    public float Duracion = 2;
-    public float Vel = 2;
-    float TiempInicial;
+    [Header("Fade Settings")]
+    public float Duracion = 2f;  // duración del fade in/out
+    public Image fadeImage;      // referencia al Image full-screen del Canvas
 
-    MngPts Mng;
+    public FinalSceneUIManager mng;
+    private float tiempInicial;
+    private bool mngAvisado = false;
+    private Color aux;
 
-    Color aux;
-
-    bool MngAvisado = false;
-
-    // Use this for initialization
     void Start()
     {
-        //renderer.material = IniFin;
-        Mng = (MngPts)FindAnyObjectByType(typeof(MngPts));
-        TiempInicial = Mng.TiempEspReiniciar;
+        // Buscamos el manager de la UI final
+        //mng = FindAnyObjectByType<FinalUIManager>();
+        tiempInicial = mng.restartDelay;
 
-        aux = GetComponent<Renderer>().material.color;
-        aux.a = 0;
-        GetComponent<Renderer>().material.color = aux;
+        // Configuramos el color inicial del fade
+        aux = fadeImage.color;
+        aux.a = 1;
+        fadeImage.color = aux;
     }
 
-    // Update is called once per frame
     void Update()
     {
-
-        if (Mng.TiempEspReiniciar > TiempInicial - Duracion)//aparicion
+        if (mng.restartDelay > tiempInicial - Duracion) // Fading In (aparece desde negro)
         {
-            aux = GetComponent<Renderer>().material.color;
-            aux.a += Time.deltaTime / Duracion;
-            GetComponent<Renderer>().material.color = aux;
-        }
-        else if (Mng.TiempEspReiniciar < Duracion)//desaparicion
-        {
-            aux = GetComponent<Renderer>().material.color;
+            aux = fadeImage.color;
             aux.a -= Time.deltaTime / Duracion;
-            GetComponent<Renderer>().material.color = aux;
+            fadeImage.color = aux;
+        }
+        else if (mng.restartDelay < Duracion) // Fading Out (desaparece a negro)
+        {
+            aux = fadeImage.color;
+            aux.a += Time.deltaTime / Duracion;
+            fadeImage.color = aux;
 
-            if (!MngAvisado)
+            if (!mngAvisado)
             {
-                MngAvisado = true;
-                Mng.DesaparecerGUI();
+                mngAvisado = true;
+                mng.DisableUI(); // oculta el panelFinal
             }
         }
-
     }
 }

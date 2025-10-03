@@ -3,45 +3,21 @@ using UnityEngine.InputSystem;
 
 public class PalletMover : ManejoPallets
 {
-    private PlayerInput playerInput;
-
-    private InputAction firstAction;
-    private InputAction secondAction;
-    private InputAction thirdAction;
-
-    public ManejoPallets Desde, Hasta;
-    bool segundoCompleto = false;
-
-    private void Awake()
+    [SerializeField] private InputActionReference firstAction; // A/Left/StickLeft/SwipeLeft
+    [SerializeField] private InputActionReference secondAction; // S/Down/StickDown/SwipeDown
+    [SerializeField] private InputActionReference thirdAction; // D/Right/StickRight/SwipeRight
+    public ManejoPallets Desde, Hasta; bool segundoCompleto = false; private void OnEnable()
     {
-        playerInput = GetComponent<PlayerInput>();
-        var actions = playerInput.actions;
-
-        firstAction = actions["First"];
-        secondAction = actions["Second"];
-        thirdAction = actions["Third"];
-    }
-
-    private void OnEnable()
-    {
-        firstAction.performed += OnFirst;
-        secondAction.performed += OnSecond;
-        thirdAction.performed += OnThird;
-
-        firstAction.Enable();
-        secondAction.Enable();
-        thirdAction.Enable();
+        firstAction.action.performed += OnFirst;
+        secondAction.action.performed += OnSecond;
+        thirdAction.action.performed += OnThird;
     }
 
     private void OnDisable()
     {
-        firstAction.performed -= OnFirst;
-        secondAction.performed -= OnSecond;
-        thirdAction.performed -= OnThird;
-
-        firstAction.Disable();
-        secondAction.Disable();
-        thirdAction.Disable();
+        firstAction.action.performed -= OnFirst;
+        secondAction.action.performed -= OnSecond;
+        thirdAction.action.performed -= OnThird;
     }
 
     private void OnFirst(InputAction.CallbackContext ctx)
@@ -70,7 +46,7 @@ public class PalletMover : ManejoPallets
 
     void SegundoPaso()
     {
-        base.Pallets[0].transform.position = transform.position;
+        Pallets[0].transform.position = transform.position;
         segundoCompleto = true;
     }
 
@@ -93,7 +69,7 @@ public class PalletMover : ManejoPallets
     {
         if (!Tenencia())
         {
-            pallet.Portador = this.gameObject;
+            pallet.Portador = gameObject;
             base.Recibir(pallet);
             return true;
         }

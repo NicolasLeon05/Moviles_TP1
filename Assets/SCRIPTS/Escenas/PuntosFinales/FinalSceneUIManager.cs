@@ -1,0 +1,107 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
+using UnityEngine.UI;
+
+public class FinalSceneUIManager : MonoBehaviour
+{
+    [Header("UI References")]
+    //public TextMeshProUGUI winnerText;
+    public Image winnerBanner;
+    public TextMeshProUGUI scoreLeft;
+    public TextMeshProUGUI scoreRight;
+    public GameObject panelFinal;
+    public Sprite winnerLeft;
+    public Sprite winnerRight;
+
+    [Header("Settings")]
+    public float blinkInterval = 0.7f;
+    public float restartDelay = 10f;
+
+    private float blinkTimer;
+    private bool blinkOn = true;
+    private bool showUI = false;
+
+    void Start()
+    {
+        SetupWinner();
+        Invoke(nameof(EnableUI), 2.5f);
+    }
+
+    void Update()
+    {
+        // Input
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetMouseButtonDown(0))
+            SceneManager.LoadScene(0);
+
+        if (Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.Keypad0))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
+
+        if (Input.GetKeyDown(KeyCode.Backspace))
+            SceneManager.LoadScene(3);
+
+        restartDelay -= Time.deltaTime;
+        if (restartDelay <= 0)
+            SceneManager.LoadScene(0);
+
+        // Blink ganador
+        if (showUI)
+        {
+            blinkTimer += Time.deltaTime;
+            if (blinkTimer >= blinkInterval)
+            {
+                blinkTimer = 0;
+                blinkOn = !blinkOn;
+                UpdateScores();
+            }
+        }
+    }
+
+    void EnableUI()
+    {
+        showUI = true;
+        panelFinal.SetActive(true);
+        UpdateScores();
+    }
+
+    public void DisableUI()
+    {
+        if (panelFinal != null)
+            panelFinal.SetActive(false);
+    }
+
+    void SetupWinner()
+    {
+        if (DatosPartida.LadoGanadaor == DatosPartida.Lados.Izq)
+        {
+            // winnerText.text = "PLAYER 1 IS THE WINNER";
+            winnerBanner.sprite = winnerLeft;
+        }
+        else
+        {
+            // winnerText.text = "PLAYER 2 IS THE WINNER";
+            winnerBanner.sprite = winnerRight;
+        }
+
+        var aux = winnerBanner.color;
+        aux.a = 1.0f;
+        winnerBanner.color = aux;
+    }
+
+    void UpdateScores()
+    {
+        if (DatosPartida.LadoGanadaor == DatosPartida.Lados.Izq)
+        {
+            scoreLeft.text = blinkOn ? "$" + DatosPartida.PtsGanador : "";
+            scoreRight.text = "$" + DatosPartida.PtsPerdedor;
+        }
+        else
+        {
+            scoreLeft.text = "$" + DatosPartida.PtsPerdedor;
+            scoreRight.text = blinkOn ? "$" + DatosPartida.PtsGanador : "";
+        }
+    }
+}
