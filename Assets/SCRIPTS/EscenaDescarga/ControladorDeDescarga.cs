@@ -8,6 +8,7 @@ public class ControladorDeDescarga : MonoBehaviour
     int Contador = 0;
 
     Deposito2 Dep;
+    public GameObject volanteUI;
 
     public GameObject[] Componentes;//todos los componentes que debe activar en esta escena
 
@@ -32,8 +33,8 @@ public class ControladorDeDescarga : MonoBehaviour
 
     public Cinta Cin2;
 
-    public float Bonus = 0;
-    float TempoBonus;
+    public float Bonus = 0f;
+    public float TempoBonus;
 
 
     public AnimMngDesc ObjAnimado;
@@ -75,6 +76,16 @@ public class ControladorDeDescarga : MonoBehaviour
 
     }
 
+    public float BonusMax
+    {
+        get
+        {
+            if (PEnMov != null)
+                return (float)PEnMov.Valor;
+            return 0;
+        }
+    }
+
     //--------------------------------------------------------------//
 
     public void Activar(Deposito2 d)
@@ -88,6 +99,7 @@ public class ControladorDeDescarga : MonoBehaviour
             Componentes[i].SetActive(true);
         }
 
+        if (volanteUI != null) volanteUI.SetActive(false);
 
         CollCamion.enabled = false;
         Pj.CambiarADescarga();
@@ -120,6 +132,9 @@ public class ControladorDeDescarga : MonoBehaviour
                 }
             }
         }
+        TempoBonus = 5f;
+        Bonus = TempoBonus;
+
         //animacion
         ObjAnimado.Entrar();
 

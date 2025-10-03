@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     public float TiempoDeJuego = 60;
 
-    public enum EstadoJuego { Calibrando, Jugando, Finalizado }
+    public enum EstadoJuego { Calibrando, Jugando, Finalizado, EscenaFinal }
     public EstadoJuego EstAct = EstadoJuego.Calibrando;
 
     public PlayerInfo PlayerInfo1 = null;
@@ -73,7 +73,8 @@ public class GameManager : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse1) &&
            Input.GetKey(KeyCode.Keypad0))
         {
-            Application.LoadLevel(Application.loadedLevel);
+            SceneController.Instance.LoadLevel(SceneController.Instance.levels[SceneManager.GetActiveScene().buildIndex]);
+            //Application.LoadLevel(Application.loadedLevel);
         }
 
         //CIERRA LA APLICACION
@@ -136,11 +137,12 @@ public class GameManager : MonoBehaviour
 
 
             case EstadoJuego.Finalizado:
-
                 TiempEspMuestraPts -= Time.deltaTime;
                 if (TiempEspMuestraPts <= 0)
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-
+                {
+                    SceneController.Instance.LoadLevel(SceneController.Instance.levels[1]);
+                    EstAct = EstadoJuego.EscenaFinal;
+                }
                 break;
         }
     }
@@ -219,7 +221,7 @@ public class GameManager : MonoBehaviour
 
     void FinalizarCarrera()
     {
-        EstAct = GameManager.EstadoJuego.Finalizado;
+        EstAct = EstadoJuego.Finalizado;
 
         TiempoDeJuego = 0;
 
@@ -337,25 +339,6 @@ public class GameManager : MonoBehaviour
 
         EstAct = GameManager.EstadoJuego.Jugando;
     }
-
-    //public void FinTutorial(int playerID)
-    //{
-    //    if (playerID == 0)
-    //    {
-    //        PlayerInfo1.FinTuto2 = true;
-    //
-    //    }
-    //    else if (playerID == 1)
-    //    {
-    //        PlayerInfo2.FinTuto2 = true;
-    //    }
-    //
-    //    if (PlayerInfo1.FinTuto2 && PlayerInfo2.FinTuto2)
-    //    {
-    //        CambiarACarrera();
-    //    }
-    //}
-
     public void FinCalibracion(int playerID)
     {
         if (playerID == 0)
@@ -370,9 +353,16 @@ public class GameManager : MonoBehaviour
         if (PlayerInfo1.PJ != null && PlayerInfo2.PJ != null)
             if (PlayerInfo1.FinTuto1 && PlayerInfo2.FinTuto1)
                 CambiarACarrera();
-
     }
 
+    public void ResetGame()
+    {
+        TiempoDeJuego = 60;
+        TiempEspMuestraPts = 3;
+        EstAct = EstadoJuego.Calibrando;
+
+        IniciarCalibracion();
+    }
 
 
 

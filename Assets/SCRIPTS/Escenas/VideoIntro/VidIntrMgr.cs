@@ -20,26 +20,14 @@ public class VidIntrMgr : MonoBehaviour
 		   Input.GetKeyDown(KeyCode.Return) ||
 		   Input.GetKeyDown(KeyCode.Mouse0))
 		{
-            SceneManager.LoadScene(1);//el juego
+            SceneController.Instance.LoadLevel(SceneController.Instance.levels[0]); ;//el juego
 		}
 		
-		//REINICIAR
-		if(Input.GetKeyDown(KeyCode.Mouse1) ||
-		   Input.GetKeyDown(KeyCode.Keypad0))
-		{
-			Application.LoadLevel(Application.loadedLevel);
-		}
 		
 		//CIERRA LA APLICACION
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
 			Application.Quit();
-		}
-		
-		//CALIBRACION DEL KINECT
-		if(Input.GetKeyDown(KeyCode.Backspace))
-		{
-            SceneManager.LoadScene(3);
 		}
 	}
 }

@@ -4,8 +4,8 @@ using UnityEngine.UI;
 public class FadeInicioFinal : MonoBehaviour
 {
     [Header("Fade Settings")]
-    public float Duracion = 2f;  // duración del fade in/out
-    public Image fadeImage;      // referencia al Image full-screen del Canvas
+    public float DuracionFade = 2f;
+    public Image fadeImage;
 
     public FinalSceneUIManager mng;
     private float tiempInicial;
@@ -14,11 +14,8 @@ public class FadeInicioFinal : MonoBehaviour
 
     void Start()
     {
-        // Buscamos el manager de la UI final
-        //mng = FindAnyObjectByType<FinalUIManager>();
         tiempInicial = mng.restartDelay;
 
-        // Configuramos el color inicial del fade
         aux = fadeImage.color;
         aux.a = 1;
         fadeImage.color = aux;
@@ -26,22 +23,22 @@ public class FadeInicioFinal : MonoBehaviour
 
     void Update()
     {
-        if (mng.restartDelay > tiempInicial - Duracion) // Fading In (aparece desde negro)
+        if (mng.restartDelay > tiempInicial - DuracionFade) // Fading In (aparece desde negro)
         {
             aux = fadeImage.color;
-            aux.a -= Time.deltaTime / Duracion;
+            aux.a -= Time.deltaTime / DuracionFade;
             fadeImage.color = aux;
         }
-        else if (mng.restartDelay < Duracion) // Fading Out (desaparece a negro)
+        else if (mng.restartDelay < DuracionFade) // Fading Out (desaparece a negro)
         {
             aux = fadeImage.color;
-            aux.a += Time.deltaTime / Duracion;
+            aux.a += Time.deltaTime / DuracionFade;
             fadeImage.color = aux;
 
             if (!mngAvisado)
             {
                 mngAvisado = true;
-                mng.DisableUI(); // oculta el panelFinal
+                mng.DisableUI();
             }
         }
     }

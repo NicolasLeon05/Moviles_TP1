@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class PantallaCalibTutoUI : MonoBehaviour
 {
-    public Sprite[] ImagenesDelTuto;  // ahora son Sprites
+    public Sprite[] ImagenesDelTuto;
     public float Intervalo = 1.2f;
 
     private float tempoIntTuto = 0;
@@ -12,7 +12,7 @@ public class PantallaCalibTutoUI : MonoBehaviour
     public Sprite ImaReady;
     public ContrCalibracion ContrCalib;
 
-    private Image uiImage;  // referencia al componente UI Image
+    private Image uiImage;
 
     void Start()
     {

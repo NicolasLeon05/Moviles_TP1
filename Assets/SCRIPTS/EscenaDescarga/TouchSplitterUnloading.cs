@@ -29,16 +29,20 @@ public static class TouchSplitterUnloading
                 Vector2 endPos = touch.position.ReadValue();
                 Vector2 delta = endPos - startPos[playerId];
 
-                if (delta.magnitude < 50f) return null;
+                if (delta.magnitude < 50f) 
+                    return null;
 
                 if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y))
                 {
-                    if (delta.x > 0) return "Third";   // derecha
-                    else return "First";               // izquierda
+                    if (delta.x > 0) 
+                        return "Third";   // derecha
+                    else 
+                        return "First";               // izquierda
                 }
                 else
                 {
-                    if (delta.y < 0) return "Second";  // abajo
+                    if (delta.y < 0) 
+                        return "Second";  // abajo
                 }
 
                 isSwiping[playerId] = false;

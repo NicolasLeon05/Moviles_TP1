@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class FinalSceneUIManager : MonoBehaviour
 {
     [Header("UI References")]
-    //public TextMeshProUGUI winnerText;
     public Image winnerBanner;
     public TextMeshProUGUI scoreLeft;
     public TextMeshProUGUI scoreRight;
@@ -30,22 +29,12 @@ public class FinalSceneUIManager : MonoBehaviour
 
     void Update()
     {
-        // Input
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetMouseButtonDown(0))
-            SceneManager.LoadScene(0);
-
-        if (Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.Keypad0))
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-            Application.Quit();
-
-        if (Input.GetKeyDown(KeyCode.Backspace))
-            SceneManager.LoadScene(3);
-
-        restartDelay -= Time.deltaTime;
         if (restartDelay <= 0)
-            SceneManager.LoadScene(0);
+        {
+            SceneController.Instance.LoadLevel(SceneController.Instance.levels[0]);
+            GameManager.Instancia.ResetGame();
+        }
+
 
         // Blink ganador
         if (showUI)

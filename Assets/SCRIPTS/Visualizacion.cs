@@ -115,13 +115,6 @@ public class Visualizacion : MonoBehaviour
                 //contador de dinero
                 SetDinero();
                 break;
-
-
-            //case Player.Estados.EnTutorial:
-            //    SetInv3();
-            //    SetTuto();
-            //    SetVolante();
-            //    break;
         }
 
         GUI.skin = null;

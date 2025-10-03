@@ -5,11 +5,13 @@ public class TouchSplitter : MonoBehaviour
 {
     public static float GetPlayerInput(int playerId)
     {
-        if (Touchscreen.current == null) return 0f;
+        if (Touchscreen.current == null) 
+            return 0f;
 
         foreach (var touch in Touchscreen.current.touches)
         {
-            if (!touch.press.isPressed) continue;
+            if (!touch.press.isPressed) 
+                continue;
 
             Vector2 pos = touch.position.ReadValue();
 
