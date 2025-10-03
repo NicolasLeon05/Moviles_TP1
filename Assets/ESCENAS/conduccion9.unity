@@ -89850,7 +89850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controlador: {fileID: 13068}
-  playerId: 1
+  playerId: 0
   Desde: {fileID: 13040}
   Hasta: {fileID: 13041}
 --- !u!850595691 &377401566
@@ -91439,7 +91439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controlador: {fileID: 13064}
-  playerId: 0
+  playerId: 1
   Desde: {fileID: 13044}
   Hasta: {fileID: 13043}
 --- !u!1 &1049659492 stripped

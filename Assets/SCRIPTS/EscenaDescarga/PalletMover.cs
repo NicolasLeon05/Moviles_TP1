@@ -12,8 +12,8 @@ public class PalletMover : ManejoPallets
 
     private void TryInit()
     {
-        if (actions == null && OldGameManager.Instancia != null)
-            actions = OldGameManager.Instancia.actions;
+        if (actions == null && GameManager.Instance != null)
+            actions = GameManager.Instance.actions;
     }
 
     private void Start()

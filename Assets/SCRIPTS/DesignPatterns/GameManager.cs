@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
     // Lo llama ContrCalibracion.FinTutorial()
     public void FinCalibracion(int playerID)
     {
+        Debug.Log($"[GameManager] FinCalibracion llamado por P{playerID}. Total listos: {playersReady + 1}");
         playersReady++;
 
         if (ActualSession.mode == GameSession.GameMode.SinglePlayer && playersReady == 1)

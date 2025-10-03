@@ -51,8 +51,10 @@ public class ContrCalibracion : MonoBehaviour
 
     public void FinTutorial()
     {
+        Debug.Log($"[ContrCalibracion] Player {Pj.IdPlayer} terminó calibración");
         EstAct = Estados.Finalizado;
         palletsMover.enabled = false;
+        Pj.EstAct = Player.Estados.EnConduccion;
 
         GameManager.Instance.FinCalibracion(Pj.IdPlayer);
     }
