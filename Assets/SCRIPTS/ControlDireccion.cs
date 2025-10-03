@@ -29,11 +29,14 @@ public class ControlDireccion : MonoBehaviour
         if (!habilitado)
             return;
 
+#if UNITY_STANDALONE || UNITY_EDITOR
         if (playerId == 0)
             giro = actions.Driving.SteerP1.ReadValue<float>();
         else
             giro = actions.Driving.SteerP2.ReadValue<float>();
-
+#elif UNITY_ANDROID || UNITY_IOS
+        giro = TouchSplitter.GetPlayerInput(playerId);
+#endif
         carController.SetGiro(giro);
     }
 

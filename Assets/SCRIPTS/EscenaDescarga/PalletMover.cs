@@ -10,7 +10,6 @@ public class PalletMover : ManejoPallets
     public ManejoPallets Desde, Hasta;
     private bool segundoCompleto = false;
 
-
     private void TryInit()
     {
         if (actions == null && GameManager.Instancia != null)
@@ -26,6 +25,7 @@ public class PalletMover : ManejoPallets
     {
         TryInit();
 
+#if UNITY_STANDALONE || UNITY_EDITOR
         if (playerId == 0)
         {
             actions.Unloading.FirstP1.performed += OnFirst;
@@ -38,10 +38,12 @@ public class PalletMover : ManejoPallets
             actions.Unloading.SecondP2.performed += OnSecond;
             actions.Unloading.ThirdP2.performed += OnThird;
         }
+#endif
     }
 
     private void OnDisable()
     {
+#if UNITY_STANDALONE || UNITY_EDITOR
         if (playerId == 0)
         {
             actions.Unloading.FirstP1.performed -= OnFirst;
@@ -54,6 +56,22 @@ public class PalletMover : ManejoPallets
             actions.Unloading.SecondP2.performed -= OnSecond;
             actions.Unloading.ThirdP2.performed -= OnThird;
         }
+#endif
+    }
+
+    private void Update()
+    {
+#if UNITY_ANDROID || UNITY_IOS
+        string action = TouchSplitterUnloading.GetPlayerAction(playerId);
+
+        if (action == "First")
+            OnFirst(new InputAction.CallbackContext());
+        else if (action == "Second")
+            OnSecond(new InputAction.CallbackContext());
+        else if (action == "Third")
+            OnThird(new InputAction.CallbackContext());
+
+#endif
     }
 
     private void OnFirst(InputAction.CallbackContext ctx)

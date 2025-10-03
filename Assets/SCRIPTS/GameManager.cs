@@ -137,9 +137,6 @@ public class GameManager : MonoBehaviour
 
             case EstadoJuego.Finalizado:
 
-                //nada de trakeo con kinect, solo se muestra el puntaje
-                //tambien se puede hacer alguna animacion, es el tiempo previo a la muestra de pts
-
                 TiempEspMuestraPts -= Time.deltaTime;
                 if (TiempEspMuestraPts <= 0)
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
