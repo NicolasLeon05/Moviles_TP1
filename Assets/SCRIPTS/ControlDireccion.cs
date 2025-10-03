@@ -1,33 +1,34 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CarController))]
-[RequireComponent(typeof(PlayerInput))]
 public class ControlDireccion : MonoBehaviour
 {
     private CarController carController;
-    private PlayerInput playerInput;
-    private InputAction steerAction;
+    private InputSystem_Actions actions;
 
     private float giro;
     public bool habilitado = true;
+    public int playerId = 0; 
 
     private void Awake()
     {
         carController = GetComponent<CarController>();
-        playerInput = GetComponent<PlayerInput>();
-
-        steerAction = playerInput.actions["Steer"];
+        actions = new InputSystem_Actions();
     }
 
     private void OnEnable()
     {
-        steerAction.Enable();
+        actions.Driving.Enable();
     }
 
     private void OnDisable()
     {
-        steerAction.Disable();
+        actions.Driving.Disable();
+    }
+
+    private void OnDestroy()
+    {
+        actions.Dispose();
     }
 
     private void Update()
@@ -35,7 +36,11 @@ public class ControlDireccion : MonoBehaviour
         if (!habilitado)
             return;
 
-        giro = steerAction.ReadValue<float>();
+        if (playerId == 0)
+            giro = actions.Driving.SteerP1.ReadValue<float>();
+        else
+            giro = actions.Driving.SteerP2.ReadValue<float>();
+
         carController.SetGiro(giro);
     }
 
