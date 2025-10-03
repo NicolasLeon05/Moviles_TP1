@@ -339,7 +339,7 @@ public class OldGameManager : MonoBehaviour
         Player1.transform.forward = Vector3.forward;
         Player2.transform.forward = Vector3.forward;
 
-        EstAct = OldGameManager.EstadoJuego.Jugando;
+        EstAct = EstadoJuego.Jugando;
     }
     public void FinCalibracion(int playerID)
     {

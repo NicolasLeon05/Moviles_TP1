@@ -14,11 +14,6 @@ public class CalibracionState : IGameState
         gm.Player1.CambiarACalibracion();
         if (gm.ActualSession.mode == GameSession.GameMode.MultiPlayer)
             gm.Player2.CambiarACalibracion();
-
-        // Podés inicializar acá los objetos de calibración también
-        // Ejemplo:
-        // foreach (var obj in gm.ObjetosCalibracion)
-        //     obj.SetActive(true);
     }
 
     public void Update()
@@ -43,13 +38,5 @@ public class CalibracionState : IGameState
     public void Exit()
     {
         Debug.Log("Saliendo de Calibración");
-
-        // Acá desactivás objetos de calibración y activás los de carrera
-        // foreach (var obj in gm.ObjetosCalibracion)
-        //     obj.SetActive(false);
-
-        gm.Player1.CambiarAConduccion();
-        if (gm.ActualSession.mode == GameSession.GameMode.MultiPlayer)
-            gm.Player2.CambiarAConduccion();
     }
 }

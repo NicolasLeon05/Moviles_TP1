@@ -56,6 +56,7 @@ public class ContrCalibracion : MonoBehaviour
         palletsMover.enabled = false;
         Pj.EstAct = Player.Estados.EnConduccion;
 
+
         GameManager.Instance.FinCalibracion(Pj.IdPlayer);
     }
 

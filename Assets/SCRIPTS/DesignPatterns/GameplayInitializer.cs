@@ -35,6 +35,10 @@ public class GameplayInitializer : MonoBehaviour
             gm.Player2 = Instantiate(playerPrefab2, spawnPositions[1].position, spawnPositions[1].rotation);
             gm.Player2.IdPlayer = 1;
         }
+        else
+        {
+
+        }
 
         // Configuración de cámaras
         if (gm.ActualSession.mode == GameSession.GameMode.MultiPlayer)
@@ -73,18 +77,17 @@ public class GameplayInitializer : MonoBehaviour
             camCalibracionP2.gameObject.SetActive(false);
         }
 
-        // Asignar obstacle manager de esta escena
         gm.obstacleManager = obstacleManager;
 
-        // Aplicar dificultad antes de arrancar
-        gm.obstacleManager.AplicarDificultad(gm.ActualSession.difficulty);
-
-        // Si es single y accidentalmente se creó P2, lo apagamos
-        if (gm.ActualSession.mode == GameSession.GameMode.SinglePlayer && gm.Player2 != null)
+        if (gm.ActualSession.mode == GameSession.GameMode.SinglePlayer)
         {
             gm.Player2.gameObject.SetActive(false);
             gm.Player2 = null;
         }
+
+        // Aplicar dificultad antes de arrancar
+        gm.obstacleManager.AplicarDificultad(gm.ActualSession.difficulty);
+
 
         // Iniciar calibración
         gm.CambiarEstado(new CalibracionState(gm));

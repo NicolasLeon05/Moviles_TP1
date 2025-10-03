@@ -11,9 +11,9 @@ public class GameSession
 
     public int WinnerId;
 
-    public GameSession(Difficulty difficulty, GameMode modo)
+    public GameSession(Difficulty difficulty, GameMode mode)
     {
         this.difficulty = difficulty;
-        this.mode = modo;
+        this.mode = mode;
     }
 }

@@ -10,7 +10,6 @@ public class CarreraState : IGameState
     public void Enter()
     {
         Debug.Log("Estado: Carrera");
-        gm.obstacleManager.AplicarDificultad(gm.ActualSession.difficulty);
 
         if (gm.Player1 != null)
             gm.Player1.CambiarAConduccion();
