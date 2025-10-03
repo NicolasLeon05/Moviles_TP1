@@ -89325,6 +89325,11 @@ PrefabInstance:
       propertyPath: InputAct
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114475702172432364, guid: b81b1a58a0f14c9439cbdd014e695f71,
+        type: 3}
+      propertyPath: playerId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114643806136207610, guid: b81b1a58a0f14c9439cbdd014e695f71,
         type: 3}
       propertyPath: IdPlayer
@@ -89361,7 +89366,8 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6715956008321428367, guid: b81b1a58a0f14c9439cbdd014e695f71, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -89553,12 +89559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controlador: {fileID: 13068}
-  firstAction: {fileID: -8093909738790551496, guid: b3e100826bf30854890faa3130cccd97,
-    type: 3}
-  secondAction: {fileID: 139140927226588340, guid: b3e100826bf30854890faa3130cccd97,
-    type: 3}
-  thirdAction: {fileID: 4303477898030057806, guid: b3e100826bf30854890faa3130cccd97,
-    type: 3}
+  playerId: 1
   Desde: {fileID: 13040}
   Hasta: {fileID: 13041}
 --- !u!850595691 &377401566
@@ -89798,7 +89799,8 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6715956008321428367, guid: b81b1a58a0f14c9439cbdd014e695f71, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -90333,12 +90335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controlador: {fileID: 13064}
-  firstAction: {fileID: -8093909738790551496, guid: b3e100826bf30854890faa3130cccd97,
-    type: 3}
-  secondAction: {fileID: 139140927226588340, guid: b3e100826bf30854890faa3130cccd97,
-    type: 3}
-  thirdAction: {fileID: 4303477898030057806, guid: b3e100826bf30854890faa3130cccd97,
-    type: 3}
+  playerId: 0
   Desde: {fileID: 13044}
   Hasta: {fileID: 13043}
 --- !u!1 &1049659492 stripped
@@ -90398,12 +90395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controlador: {fileID: 13064}
-  firstAction: {fileID: -8093909738790551496, guid: b3e100826bf30854890faa3130cccd97,
-    type: 3}
-  secondAction: {fileID: 139140927226588340, guid: b3e100826bf30854890faa3130cccd97,
-    type: 3}
-  thirdAction: {fileID: 4303477898030057806, guid: b3e100826bf30854890faa3130cccd97,
-    type: 3}
+  playerId: 0
   Desde: {fileID: 13062}
   Hasta: {fileID: 13063}
 --- !u!1 &1425887806 stripped
@@ -90709,12 +90701,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controlador: {fileID: 13068}
-  firstAction: {fileID: -8093909738790551496, guid: b3e100826bf30854890faa3130cccd97,
-    type: 3}
-  secondAction: {fileID: 139140927226588340, guid: b3e100826bf30854890faa3130cccd97,
-    type: 3}
-  thirdAction: {fileID: 4303477898030057806, guid: b3e100826bf30854890faa3130cccd97,
-    type: 3}
+  playerId: 1
   Desde: {fileID: 13017}
   Hasta: {fileID: 13016}
 --- !u!1 &1666555028
@@ -90950,6 +90937,7 @@ RectTransform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 6246}
   - {fileID: 6249}
   - {fileID: 6244}
   - {fileID: 6250}
@@ -90961,7 +90949,6 @@ SceneRoots:
   - {fileID: 3359}
   - {fileID: 6270}
   - {fileID: 6273}
-  - {fileID: 6246}
   - {fileID: 4739}
   - {fileID: 6271}
   - {fileID: 6291}

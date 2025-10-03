@@ -117,11 +117,11 @@ public class Visualizacion : MonoBehaviour
                 break;
 
 
-            case Player.Estados.EnTutorial:
-                SetInv3();
-                SetTuto();
-                SetVolante();
-                break;
+            //case Player.Estados.EnTutorial:
+            //    SetInv3();
+            //    SetTuto();
+            //    SetVolante();
+            //    break;
         }
 
         GUI.skin = null;
@@ -249,22 +249,22 @@ public class Visualizacion : MonoBehaviour
     }
 
 
-    void SetTuto()
-    {
-        if (Pj.ContrTuto.Finalizado)
-        {
-            GUI.skin = GS_TutoCalib;
-
-            R.width = ReadyEsc.x * Screen.width / 100;
-            R.height = ReadyEsc.y * Screen.height / 100;
-            R.x = ReadyPos.x * Screen.width / 100;
-            R.y = ReadyPos.y * Screen.height / 100;
-            if (LadoAct == Lado.Der)
-                R.x = (Screen.width) - R.x - R.width;
-
-            GUI.Box(R, "ESPERANDO AL OTRO JUGADOR");
-        }
-    }
+    //void SetTuto()
+    //{
+    //    if (Pj.ContrTuto.Finalizado)
+    //    {
+    //        GUI.skin = GS_TutoCalib;
+    //
+    //        R.width = ReadyEsc.x * Screen.width / 100;
+    //        R.height = ReadyEsc.y * Screen.height / 100;
+    //        R.x = ReadyPos.x * Screen.width / 100;
+    //        R.y = ReadyPos.y * Screen.height / 100;
+    //        if (LadoAct == Lado.Der)
+    //            R.x = (Screen.width) - R.x - R.width;
+    //
+    //        GUI.Box(R, "ESPERANDO AL OTRO JUGADOR");
+    //    }
+    //}
 
     void SetVolante()
     {

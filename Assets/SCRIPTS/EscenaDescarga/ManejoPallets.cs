@@ -17,13 +17,10 @@ public class ManejoPallets : MonoBehaviour
 
     public bool Tenencia()
     {
-
         if (Pallets.Count != 0)
             return true;
         else
-            return false;
-
-        
+            return false;        
     }
 
     public virtual void Dar(ManejoPallets receptor)

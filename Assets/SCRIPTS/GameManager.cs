@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instancia;
+    public InputSystem_Actions actions;
 
     public float TiempoDeJuego = 60;
 
@@ -45,9 +46,20 @@ public class GameManager : MonoBehaviour
 
     //--------------------------------------------------------//
 
-    void Awake()
+    private void Awake()
     {
-        GameManager.Instancia = this;
+        if (Instancia == null)
+        {
+            Instancia = this;
+            DontDestroyOnLoad(gameObject);
+
+            actions = new InputSystem_Actions();
+            actions.Enable();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Start()
@@ -75,38 +87,10 @@ public class GameManager : MonoBehaviour
         {
             case EstadoJuego.Calibrando:
 
-                //SKIP EL TUTORIAL
-                if (Input.GetKey(KeyCode.Mouse0) &&
-                   Input.GetKey(KeyCode.Keypad0))
-                {
-                    if (PlayerInfo1 != null && PlayerInfo2 != null)
-                    {
-                        FinCalibracion(0);
-                        FinCalibracion(1);
-
-                        FinTutorial(0);
-                        FinTutorial(1);
-                    }
-                }
-
-                //if (PlayerInfo1.PJ == null && Input.GetKeyDown(KeyCode.W))
-                {
-                    PlayerInfo1 = new PlayerInfo(0, Player1);
-                    PlayerInfo1.LadoAct = Visualizacion.Lado.Izq;
-                    SetPosicion(PlayerInfo1);
-                }
-
-                //if (PlayerInfo2.PJ == null && Input.GetKeyDown(KeyCode.UpArrow))
-                {
-                    PlayerInfo2 = new PlayerInfo(1, Player2);
-                    PlayerInfo2.LadoAct = Visualizacion.Lado.Der;
-                    SetPosicion(PlayerInfo2);
-                }
-
                 //cuando los 2 pj terminaron los tutoriales empiesa la carrera
                 if (PlayerInfo1.PJ != null && PlayerInfo2.PJ != null)
                 {
-                    if (PlayerInfo1.FinTuto2 && PlayerInfo2.FinTuto2)
+                    if (PlayerInfo1.FinTuto1 && PlayerInfo2.FinTuto1)
                     {
                         EmpezarCarrera();
                     }
@@ -215,6 +199,13 @@ public class GameManager : MonoBehaviour
             ObjsCarrera[i].SetActive(false);
         }
 
+        PlayerInfo1 = new PlayerInfo(0, Player1);
+        PlayerInfo1.LadoAct = Visualizacion.Lado.Izq;
+        SetPosicion(PlayerInfo1);
+
+        PlayerInfo2 = new PlayerInfo(1, Player2);
+        PlayerInfo2.LadoAct = Visualizacion.Lado.Der;
+        SetPosicion(PlayerInfo2);
 
         Player1.CambiarACalibracion();
         Player2.CambiarACalibracion();
@@ -350,30 +341,29 @@ public class GameManager : MonoBehaviour
         EstAct = GameManager.EstadoJuego.Jugando;
     }
 
-    public void FinTutorial(int playerID)
-    {
-        if (playerID == 0)
-        {
-            PlayerInfo1.FinTuto2 = true;
-
-        }
-        else if (playerID == 1)
-        {
-            PlayerInfo2.FinTuto2 = true;
-        }
-
-        if (PlayerInfo1.FinTuto2 && PlayerInfo2.FinTuto2)
-        {
-            CambiarACarrera();
-        }
-    }
+    //public void FinTutorial(int playerID)
+    //{
+    //    if (playerID == 0)
+    //    {
+    //        PlayerInfo1.FinTuto2 = true;
+    //
+    //    }
+    //    else if (playerID == 1)
+    //    {
+    //        PlayerInfo2.FinTuto2 = true;
+    //    }
+    //
+    //    if (PlayerInfo1.FinTuto2 && PlayerInfo2.FinTuto2)
+    //    {
+    //        CambiarACarrera();
+    //    }
+    //}
 
     public void FinCalibracion(int playerID)
     {
         if (playerID == 0)
         {
             PlayerInfo1.FinTuto1 = true;
-
         }
         else if (playerID == 1)
         {
@@ -382,7 +372,7 @@ public class GameManager : MonoBehaviour
 
         if (PlayerInfo1.PJ != null && PlayerInfo2.PJ != null)
             if (PlayerInfo1.FinTuto1 && PlayerInfo2.FinTuto1)
-                CambiarACarrera();//CambiarATutorial();
+                CambiarACarrera();
 
     }
 

@@ -3,21 +3,57 @@ using UnityEngine.InputSystem;
 
 public class PalletMover : ManejoPallets
 {
-    [SerializeField] private InputActionReference firstAction; // A/Left/StickLeft/SwipeLeft
-    [SerializeField] private InputActionReference secondAction; // S/Down/StickDown/SwipeDown
-    [SerializeField] private InputActionReference thirdAction; // D/Right/StickRight/SwipeRight
-    public ManejoPallets Desde, Hasta; bool segundoCompleto = false; private void OnEnable()
+    private InputSystem_Actions actions;
+
+    [SerializeField] private int playerId = 0; // 0 = P1, 1 = P2
+
+    public ManejoPallets Desde, Hasta;
+    private bool segundoCompleto = false;
+
+
+    private void TryInit()
     {
-        firstAction.action.performed += OnFirst;
-        secondAction.action.performed += OnSecond;
-        thirdAction.action.performed += OnThird;
+        if (actions == null && GameManager.Instancia != null)
+            actions = GameManager.Instancia.actions;
+    }
+
+    private void Start()
+    {
+        TryInit();
+    }
+
+    private void OnEnable()
+    {
+        TryInit();
+
+        if (playerId == 0)
+        {
+            actions.Unloading.FirstP1.performed += OnFirst;
+            actions.Unloading.SecondP1.performed += OnSecond;
+            actions.Unloading.ThirdP1.performed += OnThird;
+        }
+        else
+        {
+            actions.Unloading.FirstP2.performed += OnFirst;
+            actions.Unloading.SecondP2.performed += OnSecond;
+            actions.Unloading.ThirdP2.performed += OnThird;
+        }
     }
 
     private void OnDisable()
     {
-        firstAction.action.performed -= OnFirst;
-        secondAction.action.performed -= OnSecond;
-        thirdAction.action.performed -= OnThird;
+        if (playerId == 0)
+        {
+            actions.Unloading.FirstP1.performed -= OnFirst;
+            actions.Unloading.SecondP1.performed -= OnSecond;
+            actions.Unloading.ThirdP1.performed -= OnThird;
+        }
+        else
+        {
+            actions.Unloading.FirstP2.performed -= OnFirst;
+            actions.Unloading.SecondP2.performed -= OnSecond;
+            actions.Unloading.ThirdP2.performed -= OnThird;
+        }
     }
 
     private void OnFirst(InputAction.CallbackContext ctx)

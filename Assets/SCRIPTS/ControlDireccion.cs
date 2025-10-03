@@ -8,31 +8,24 @@ public class ControlDireccion : MonoBehaviour
 
     private float giro;
     public bool habilitado = true;
-    public int playerId = 0; 
+    public int playerId = 0; // 0 = P1, 1 = P2
 
-    private void Awake()
+    private void Start()
     {
         carController = GetComponent<CarController>();
-        actions = new InputSystem_Actions();
+        TryInit();
     }
 
-    private void OnEnable()
+    private void TryInit()
     {
-        actions.Driving.Enable();
-    }
-
-    private void OnDisable()
-    {
-        actions.Driving.Disable();
-    }
-
-    private void OnDestroy()
-    {
-        actions.Dispose();
+        if (actions == null && GameManager.Instancia != null)
+            actions = GameManager.Instancia.actions;
     }
 
     private void Update()
     {
+        TryInit();
+
         if (!habilitado)
             return;
 

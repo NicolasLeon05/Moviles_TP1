@@ -10,7 +10,7 @@ public class EstanteLlegada : ManejoPallets
 
     public override bool Recibir(Pallet p)
     {
-        p.Portador = this.gameObject;
+        p.Portador = gameObject;
         base.Recibir(p);
         ContrCalib.FinTutorial();
 

@@ -36,7 +36,7 @@ public class ContrCalibracion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (EstAct == ContrCalibracion.Estados.Tutorial)
+        if (EstAct == Estados.Tutorial)
         {
             if (Tempo2 < TiempEspCalib)
             {
@@ -51,14 +51,14 @@ public class ContrCalibracion : MonoBehaviour
 
     public void IniciarTesteo()
     {
-        EstAct = ContrCalibracion.Estados.Tutorial;
+        EstAct = Estados.Tutorial;
         palletsMover.enabled = true;
         palletsMover.enabled = true;
     }
 
     public void FinTutorial()
     {
-        EstAct = ContrCalibracion.Estados.Finalizado;
+        EstAct = Estados.Finalizado;
         palletsMover.enabled = false;
         GM.FinCalibracion(Pj.IdPlayer);
     }
