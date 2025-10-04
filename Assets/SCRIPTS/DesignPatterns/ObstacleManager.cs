@@ -15,37 +15,34 @@ public class ObstacleManager : MonoBehaviour
 
     public void AplicarDificultad(GameSession.Difficulty dificultad)
     {
-        // Desactivar todos primero
         SetAllInactive(obstaculos);
         SetAllInactive(bolsas);
         SetAllInactive(estaciones);
 
-        // Definir porcentaje según dificultad
         float porcentajeObs = dificultad switch
         {
-            GameSession.Difficulty.Easy => 0.4f, // menos obstáculos
+            GameSession.Difficulty.Easy => 0.4f,
             GameSession.Difficulty.Normal => 0.7f,
-            GameSession.Difficulty.Hard => 1f,   // todos los obstáculos
+            GameSession.Difficulty.Hard => 1f,
             _ => 1f
         };
 
         float porcentajeBolsas = dificultad switch
         {
-            GameSession.Difficulty.Easy => 1f,   // muchas bolsas
+            GameSession.Difficulty.Easy => 1f,
             GameSession.Difficulty.Normal => 0.7f,
-            GameSession.Difficulty.Hard => 0.4f, // pocas bolsas
+            GameSession.Difficulty.Hard => 0.4f,
             _ => 1f
         };
 
         float porcentajeEstaciones = dificultad switch
         {
-            GameSession.Difficulty.Easy => 1f,   // todas activas
+            GameSession.Difficulty.Easy => 1f,
             GameSession.Difficulty.Normal => 0.7f,
-            GameSession.Difficulty.Hard => 0.5f, // menos estaciones
+            GameSession.Difficulty.Hard => 0.5f,
             _ => 1f
         };
 
-        // Aplicar lógica de activación
         ActivarAleatorios(obstaculos, porcentajeObs);
         ActivarAleatorios(bolsas, porcentajeBolsas);
         ActivarAleatorios(estaciones, porcentajeEstaciones);

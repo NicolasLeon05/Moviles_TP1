@@ -26,7 +26,6 @@ public class GameplayInitializer : MonoBehaviour
     {
         var gm = GameManager.Instance;
 
-        // Instanciar Player1 siempre
         gm.Player1 = playerPrefab1;
         gm.Player1.IdPlayer = 0;
 
@@ -63,7 +62,7 @@ public class GameplayInitializer : MonoBehaviour
         }
         else
         {
-            // SinglePlayer -> sólo P1 en fullscreen
+            // SinglePlayer
             camConduccionP1.rect = new Rect(0f, 0f, 1f, 1f);
             camConduccionP1.gameObject.SetActive(true);
             camConduccionP2.gameObject.SetActive(false);
@@ -79,11 +78,8 @@ public class GameplayInitializer : MonoBehaviour
 
         gm.obstacleManager = obstacleManager;
 
-        // Aplicar dificultad antes de arrancar
         gm.obstacleManager.AplicarDificultad(gm.ActualSession.difficulty);
 
-
-        // Iniciar calibración
         gm.CambiarEstado(new CalibracionState(gm));
     }
 }

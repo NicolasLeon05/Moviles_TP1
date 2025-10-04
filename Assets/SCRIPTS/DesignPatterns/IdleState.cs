@@ -12,8 +12,6 @@ public class IdleState : IGameState
     public void Enter()
     {
         Debug.Log("Estado: Idle (en menú)");
-        // Podés resetear variables si querés:
-        // gm.playersReady = 0;
     }
 
     public void Update()

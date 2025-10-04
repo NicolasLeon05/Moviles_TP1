@@ -97,7 +97,7 @@ public class VisualizacionCanvas : MonoBehaviour
         {
             res = "";
         }
-        else if (strDinero.Length == 6) //cientos de miles
+        else if (strDinero.Length == 6)
         {
             for (int i = 0; i < strDinero.Length; i++)
             {
@@ -105,7 +105,7 @@ public class VisualizacionCanvas : MonoBehaviour
                 if (i == 2) res += ".";
             }
         }
-        else if (strDinero.Length == 7) //millones
+        else if (strDinero.Length == 7)
         {
             for (int i = 0; i < strDinero.Length; i++)
             {

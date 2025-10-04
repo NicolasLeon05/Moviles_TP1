@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,10 +19,6 @@ public class SceneController : MonoBehaviour
 
     public static SceneController Instance { get; private set; }
 
-    /// <summary>
-    /// Initializes the singleton instance of the SceneController.
-    /// Destroys duplicates and persists across scenes.
-    /// </summary>
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -34,36 +29,58 @@ public class SceneController : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
         SaveBootScenes();
     }
 
     private void Start()
     {
-        LoadLevel(levels[0]);       
+        LoadLevel(levels[0]);
     }
 
-
     /// <summary>
-    /// Loads the given level and unloads all non-persistent scenes currently loaded.
+    /// Loads the given level with loading screen and unloads all non-persistent scenes currently loaded.
     /// </summary>
     public void LoadLevel(Level level)
     {
-        AddLevel(level);
+        StartCoroutine(LoadLevelRoutine(level));
+    }
+
+    private IEnumerator LoadLevelRoutine(Level level)
+    {
+        int loadingSceneIndex = SceneManager.sceneCountInBuildSettings - 1;
+        yield return SceneManager.LoadSceneAsync(loadingSceneIndex, LoadSceneMode.Additive);
+
+        Scene loadingScene = SceneManager.GetSceneByBuildIndex(loadingSceneIndex);
+        if (loadingScene.IsValid())
+            SceneManager.SetActiveScene(loadingScene);
 
         foreach (var scene in _loadedScenes)
         {
             if (!scene.IsPersistent && !level.scenes.Contains(scene))
-                UnloadSceneByIndex(scene.Index);
+                yield return UnloadSceneByIndexRoutine(scene.Index);
         }
 
+        foreach (var scene in level.scenes)
+        {
+            if (!_loadedScenes.Contains(scene) && !_persistentLoadedScenes.Contains(scene))
+            {
+                yield return LoadAdditiveByRefRoutine(scene);
+                _loadedScenes.Add(scene);
+
+                if (scene.IsPersistent)
+                    _persistentLoadedScenes.Add(scene);
+            }
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        yield return UnloadSceneByIndexRoutine(loadingSceneIndex);
+
+        if (level.scenes.Count > 0)
+            SetSceneActive(level.scenes[0].Index);
     }
 
-    /// <summary>
-    /// Loads all scenes in the level additively if they aren't already loaded.
-    /// Stores all scenes in private loadedScenes list
-    /// Stores persistent scenes in private persistentLoadedScenes list
-    /// </summary>
+
     public void AddLevel(Level level)
     {
         foreach (var scene in level.scenes)
@@ -79,9 +96,6 @@ public class SceneController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Unloads all scenes in the stack and clears the private lists
-    /// </summary>
     public void UnloadAllScenes()
     {
         var scenesToUnload = new List<SceneRef>(_loadedScenes);
@@ -96,10 +110,6 @@ public class SceneController : MonoBehaviour
         _persistentLoadedScenes.Clear();
     }
 
-    /// <summary>
-    /// Finds a persistent scene and sets it active.
-    /// Then unloads all the non persitent ones
-    /// </summary>
     public void UnloadNonPersistentScenes()
     {
         foreach (var scene in _loadedScenes)
@@ -120,9 +130,6 @@ public class SceneController : MonoBehaviour
         _loadedScenes.RemoveAll(scene => !scene.IsPersistent);
     }
 
-    /// <summary>
-    /// Save the scenes in the boot level
-    /// </summary>
     public void SaveBootScenes()
     {
         foreach (var scene in _bootLevel.scenes)
@@ -135,18 +142,11 @@ public class SceneController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Starts coroutine to load a scene additively from a SceneRef
-    /// </summary>
     public void LoadAdditiveByRef(SceneRef scene)
     {
         StartCoroutine(LoadAdditiveByRefRoutine(scene));
     }
 
-    /// <summary>
-    /// Coroutine that loads a scene additively and sets it active if needed.
-    /// Also ensures duplicated AudioListeners are destroyed
-    /// </summary>
     private IEnumerator LoadAdditiveByRefRoutine(SceneRef scene)
     {
         if (scene.Index < SceneManager.sceneCountInBuildSettings)
@@ -158,23 +158,14 @@ public class SceneController : MonoBehaviour
             Scene newScene = SceneManager.GetSceneByBuildIndex(scene.Index);
             if (newScene.IsValid() && scene.IsActive)
                 SetSceneActive(scene.Index);
-
-
-            //SoundManager.Instance.DestroyDuplicatedAudioListeners();
         }
     }
 
-    /// <summary>
-    /// Starts coroutine to unload a scene by its build index
-    /// </summary>
     public void UnloadSceneByIndex(int index)
     {
         StartCoroutine(UnloadSceneByIndexRoutine(index));
     }
 
-    /// <summary>
-    /// Coroutine that unloads a scene asynchronously by index
-    /// </summary>
     private IEnumerator UnloadSceneByIndexRoutine(int index)
     {
         if (index < 0 || index >= SceneManager.sceneCountInBuildSettings)
@@ -192,10 +183,6 @@ public class SceneController : MonoBehaviour
             yield return null;
     }
 
-    /// <summary>
-    /// Sets the scene with the given build index as the active scene,
-    /// and updates the current and previous active SceneRefs
-    /// </summary>
     public void SetSceneActive(int index)
     {
         Scene scene = SceneManager.GetSceneByBuildIndex(index);
@@ -212,9 +199,6 @@ public class SceneController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Exits the application. Stops play mode if running in the Unity Editor
-    /// </summary>
     public void Exit()
     {
         Application.Quit();

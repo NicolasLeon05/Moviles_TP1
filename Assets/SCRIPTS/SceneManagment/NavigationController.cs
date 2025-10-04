@@ -22,7 +22,6 @@ public class NavigationController : MonoBehaviour
     private void Awake()
     {
         eventSystem = GetComponent<EventSystem>();
-        //lastSelectedOption = eventSystem.firstSelectedGameObject;
         AddMenusToList();
         activeMenu = baseMenu.GetComponent<Menu>();
     }
@@ -33,7 +32,6 @@ public class NavigationController : MonoBehaviour
     private void Start()
     {
         SetBaseMenuActive();
-        //GameManager.Instance.ShowCursor();
     }
 
     /// <summary>
@@ -55,8 +53,6 @@ public class NavigationController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        //Debug.Log(GameManager.Instance.CurrentState);
-
         if (eventSystem != null)
         {
             if (eventSystem.currentSelectedGameObject == null)
@@ -67,7 +63,6 @@ public class NavigationController : MonoBehaviour
             else if (lastSelectedOption != eventSystem.currentSelectedGameObject)
             {
                 lastSelectedOption = eventSystem.currentSelectedGameObject;
-                //SoundManager.Instance.PlaySound(SoundType.SelectButton);
             }
         }
         else

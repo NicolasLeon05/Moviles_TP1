@@ -11,8 +11,6 @@ public class CarreraState : IGameState
     {
         Debug.Log("Estado: Carrera");
 
-        // Posicionar jugadores según su lado
-        // (asumiendo que guardás estas posiciones en el GameManager como antes)
         if (gm.Player1 != null && gm.Player2 != null)
         {
             gm.Player1.transform.forward = Vector3.forward;
