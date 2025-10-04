@@ -5,23 +5,35 @@ public class TouchSplitter : MonoBehaviour
 {
     public static float GetPlayerInput(int playerId)
     {
-        if (Touchscreen.current == null) 
+        if (Touchscreen.current == null)
             return 0f;
+
+        bool singlePlayer = GameManager.Instance.ActualSession.mode == GameSession.GameMode.SinglePlayer;
 
         foreach (var touch in Touchscreen.current.touches)
         {
-            if (!touch.press.isPressed) 
+            if (!touch.press.isPressed)
                 continue;
 
             Vector2 pos = touch.position.ReadValue();
 
-            if (playerId == 0 && pos.x < Screen.width / 2)
+            if (singlePlayer)
             {
-                return (pos.x / (Screen.width / 2)) * 2f - 1f;
+                if (playerId == 0)
+                {
+                    return (pos.x / Screen.width) * 2f - 1f;
+                }
             }
-            else if (playerId == 1 && pos.x >= Screen.width / 2)
+            else
             {
-                return ((pos.x - Screen.width / 2) / (Screen.width / 2)) * 2f - 1f;
+                if (playerId == 0 && pos.x < Screen.width / 2)
+                {
+                    return (pos.x / (Screen.width / 2)) * 2f - 1f;
+                }
+                else if (playerId == 1 && pos.x >= Screen.width / 2)
+                {
+                    return ((pos.x - Screen.width / 2) / (Screen.width / 2)) * 2f - 1f;
+                }
             }
         }
 

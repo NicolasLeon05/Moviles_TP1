@@ -26234,14 +26234,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2682}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.093184754, y: -0.11220307, z: 0.010806729, w: 0.9892473}
-  m_LocalPosition: {x: -1028.5, y: -501.9, z: -20.8}
-  m_LocalScale: {x: 1.4585265, y: 1.4585267, z: 1.4585267}
+  m_LocalRotation: {x: 0.09273332, y: -0.07637791, z: 0.014167412, w: 0.9926562}
+  m_LocalPosition: {x: 0.0075683594, y: 3.0714824, z: -14.318575}
+  m_LocalScale: {x: 0.8561106, y: 0.8561107, z: 0.85611075}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 887822677}
-  m_Father: {fileID: 108402252}
-  m_LocalEulerAnglesHint: {x: 10.766, y: -12.939, z: 0.027}
+  m_Father: {fileID: 5830}
+  m_LocalEulerAnglesHint: {x: 10.735, y: -8.723, z: 0.814}
 --- !u!4 &5830
 Transform:
   m_ObjectHideFlags: 0
@@ -26255,6 +26255,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5829}
   - {fileID: 5827}
   - {fileID: 1568178464}
   - {fileID: 5832}
@@ -31777,6 +31778,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6265}
   - {fileID: 6267}
   - {fileID: 1325283265}
   - {fileID: 6146}
@@ -31793,12 +31795,12 @@ Transform:
   m_GameObject: {fileID: 3118}
   serializedVersion: 2
   m_LocalRotation: {x: 0.09202487, y: -0.13486116, z: 0.007812911, w: 0.98655105}
-  m_LocalPosition: {x: -786.43, y: -500.87, z: -22.85}
-  m_LocalScale: {x: 1.4585265, y: 1.4585267, z: 1.4585267}
+  m_LocalPosition: {x: 2.6691437, y: 3.0773418, z: -14.500535}
+  m_LocalScale: {x: 0.8561106, y: 0.85611075, z: 0.85611075}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1907271085}
-  m_Father: {fileID: 1873155031}
+  m_Father: {fileID: 6264}
   m_LocalEulerAnglesHint: {x: 10.584, y: -15.619, z: -0.548}
 --- !u!4 &6266
 Transform:
@@ -89487,7 +89489,6 @@ RectTransform:
   - {fileID: 1533905464}
   - {fileID: 330419221}
   - {fileID: 990097713}
-  - {fileID: 5829}
   m_Father: {fileID: 616857717}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -92456,7 +92457,6 @@ RectTransform:
   - {fileID: 741455520}
   - {fileID: 665554162}
   - {fileID: 456829950}
-  - {fileID: 6265}
   m_Father: {fileID: 354830048}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
