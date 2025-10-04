@@ -22,13 +22,6 @@ public class Respawn : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        /*
-		//a modo de prueba
-		TiempDeNoColision = 100;
-		IgnorarColision(true);
-		*/
-
-        //restaura las colisiones
         Physics.IgnoreLayerCollision(8, 9, false);
     }
 
@@ -63,31 +56,22 @@ public class Respawn : MonoBehaviour
 
     public void Respawnear()
     {
-        GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+        var rb = GetComponent<Rigidbody>();
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
 
         gameObject.GetComponent<CarController>().SetGiro(0f);
 
-        if (CPAct.Habilitado())
+        if (CPAct != null && CPAct.Habilitado())
         {
-            if (GetComponent<Visualizacion>().LadoAct == Visualizacion.Lado.Der)
-                transform.position = CPAct.transform.position + CPAct.transform.right * Random.Range(RangMinDer, RangMaxDer);
-            else
-                transform.position = CPAct.transform.position + CPAct.transform.right * Random.Range(RangMinDer * (-1), RangMaxDer * (-1));
-            transform.forward = CPAct.transform.forward;
+            SetPosSegunJugador(CPAct);
         }
         else if (CPAnt != null)
         {
-            if (GetComponent<Visualizacion>().LadoAct == Visualizacion.Lado.Der)
-                transform.position = CPAnt.transform.position + CPAnt.transform.right * Random.Range(RangMinDer, RangMaxDer);
-            else
-                transform.position = CPAnt.transform.position + CPAnt.transform.right * Random.Range(RangMinDer * (-1), RangMaxDer * (-1));
-            transform.forward = CPAnt.transform.forward;
+            SetPosSegunJugador(CPAnt);
         }
 
         IgnorarColision(true);
-
-        //animacion de resp
-
     }
 
     public void Respawnear(Vector3 pos)
@@ -101,6 +85,19 @@ public class Respawn : MonoBehaviour
         IgnorarColision(true);
     }
 
+    private void SetPosSegunJugador(CheakPoint cp)
+    {
+        var player = GetComponent<Player>();
+        Vector3 pos;
+
+        if (player != null && player.IdPlayer == 1) // derecha
+            pos = cp.transform.position + cp.transform.right * Random.Range(RangMinDer, RangMaxDer);
+        else // izquierda
+            pos = cp.transform.position + cp.transform.right * Random.Range(-RangMaxDer, -RangMinDer);
+
+        transform.position = pos;
+        transform.forward = cp.transform.forward;
+    }
     public void Respawnear(Vector3 pos, Vector3 dir)
     {
         GetComponent<Rigidbody>().linearVelocity = Vector3.zero;

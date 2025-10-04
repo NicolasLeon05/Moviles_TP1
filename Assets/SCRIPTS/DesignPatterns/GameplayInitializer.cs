@@ -27,17 +27,17 @@ public class GameplayInitializer : MonoBehaviour
         var gm = GameManager.Instance;
 
         // Instanciar Player1 siempre
-        gm.Player1 = Instantiate(playerPrefab1, spawnPositions[0].position, spawnPositions[0].rotation);
+        gm.Player1 = playerPrefab1;
         gm.Player1.IdPlayer = 0;
 
         if (gm.ActualSession.mode == GameSession.GameMode.MultiPlayer)
         {
-            gm.Player2 = Instantiate(playerPrefab2, spawnPositions[1].position, spawnPositions[1].rotation);
+            gm.Player2 = playerPrefab2;
             gm.Player2.IdPlayer = 1;
         }
         else
         {
-
+            gm.Player2 = null;
         }
 
         // Configuración de cámaras
@@ -78,12 +78,6 @@ public class GameplayInitializer : MonoBehaviour
         }
 
         gm.obstacleManager = obstacleManager;
-
-        if (gm.ActualSession.mode == GameSession.GameMode.SinglePlayer)
-        {
-            gm.Player2.gameObject.SetActive(false);
-            gm.Player2 = null;
-        }
 
         // Aplicar dificultad antes de arrancar
         gm.obstacleManager.AplicarDificultad(gm.ActualSession.difficulty);

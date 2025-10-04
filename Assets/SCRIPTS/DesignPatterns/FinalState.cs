@@ -10,11 +10,7 @@ public class FinalState : IGameState
     public void Enter()
     {
         Debug.Log("Estado: Final");
-
-        if (gm.ActualSession.mode == GameSession.GameMode.SinglePlayer)
-            Debug.Log($"Puntaje Jugador 1: {gm.ActualSession.PtsJugador1}");
-        else
-            Debug.Log($"Ganador: Jugador {gm.ActualSession.WinnerId + 1}");
+        SceneController.Instance.LoadLevel(SceneController.Instance.levels[2]);
     }
 
 

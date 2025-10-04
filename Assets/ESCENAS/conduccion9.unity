@@ -89789,7 +89789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controlador: {fileID: 13068}
-  playerId: 0
+  playerId: 1
   Desde: {fileID: 13040}
   Hasta: {fileID: 13041}
 --- !u!850595691 &377401566
@@ -90352,7 +90352,8 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114911345111112572, guid: b81b1a58a0f14c9439cbdd014e695f71, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -91378,7 +91379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controlador: {fileID: 13064}
-  playerId: 1
+  playerId: 0
   Desde: {fileID: 13044}
   Hasta: {fileID: 13043}
 --- !u!1 &1049659492 stripped

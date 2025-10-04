@@ -66,33 +66,24 @@ public class FinalSceneUIManager : MonoBehaviour
 
     void SetupWinner()
     {
-        if (DatosPartida.LadoGanadaor == DatosPartida.Lados.Izq)
-        {
-            // winnerText.text = "PLAYER 1 IS THE WINNER";
+        if (GameManager.Instance.ActualSession.WinnerId == 0)
             winnerBanner.sprite = winnerLeft;
-        }
         else
-        {
-            // winnerText.text = "PLAYER 2 IS THE WINNER";
             winnerBanner.sprite = winnerRight;
-        }
-
-        var aux = winnerBanner.color;
-        aux.a = 1.0f;
-        winnerBanner.color = aux;
     }
 
     void UpdateScores()
     {
-        if (DatosPartida.LadoGanadaor == DatosPartida.Lados.Izq)
+        if (GameManager.Instance.ActualSession.WinnerId == 0)
         {
-            scoreLeft.text = blinkOn ? "$" + DatosPartida.PtsGanador : "";
-            scoreRight.text = "$" + DatosPartida.PtsPerdedor;
+            scoreLeft.text = blinkOn ? "$" + GameManager.Instance.ActualSession.PtsJugador1 : "";
+            scoreRight.text = "$" + GameManager.Instance.ActualSession.PtsJugador2;
         }
         else
         {
-            scoreLeft.text = "$" + DatosPartida.PtsPerdedor;
-            scoreRight.text = blinkOn ? "$" + DatosPartida.PtsGanador : "";
+            scoreLeft.text = "$" + GameManager.Instance.ActualSession.PtsJugador1;
+            scoreRight.text = blinkOn ? "$" + GameManager.Instance.ActualSession.PtsJugador2 : "";
         }
     }
+
 }
