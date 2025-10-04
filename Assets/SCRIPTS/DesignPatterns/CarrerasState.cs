@@ -3,7 +3,7 @@ using UnityEngine;
 public class CarreraState : IGameState
 {
     private GameManager gm;
-    private float tiempo = 5;
+    private float tiempo = 50f;
 
     public CarreraState(GameManager gm) { this.gm = gm; }
 

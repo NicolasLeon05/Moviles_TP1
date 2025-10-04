@@ -104,20 +104,22 @@ public class NavigationController : MonoBehaviour
     /// </summary>
     public void SetMenuActive(Menu menuToActivate)
     {
+        Debug.Log("SetMenuActive llamado con: " + menuToActivate?.name);
+
         foreach (var menu in menus)
         {
+            Debug.Log("Comparando con menu en lista: " + menu.name);
             bool isActive = menu == menuToActivate;
             menu.gameObject.SetActive(isActive);
 
             if (isActive)
             {
+                Debug.Log("Activado: " + menu.name);
                 activeMenu = menu;
-                //eventSystem.SetSelectedGameObject(menu.firstButton);
             }
-            else
-                menu.gameObject.SetActive(false);
         }
     }
+
 
     /// <summary>
     /// Deactivates all menus under this object

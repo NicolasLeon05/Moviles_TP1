@@ -43,6 +43,7 @@ public class EventListener : MonoBehaviour
 
     private void HandleActivateMenu(Menu menu)
     {
+        Debug.Log("HandleActivateMenu recibido para: " + menu?.name);
         navigationController.SetMenuActive(menu);
     }
 

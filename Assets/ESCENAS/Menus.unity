@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74e27ddb5b1bc7d479c911163335723d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuName: MainMenu
+  menuName: DifficultySelectionMenu
   firstButton: {fileID: 0}
 --- !u!114 &28546926
 MonoBehaviour:

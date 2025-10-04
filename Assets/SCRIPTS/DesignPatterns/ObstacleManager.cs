@@ -3,29 +3,66 @@ using System.Collections.Generic;
 
 public class ObstacleManager : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> obstaculos; // arrastrás todos los obstáculos aquí en el editor
+    [Header("Obstáculos")]
+    [SerializeField] private List<GameObject> obstaculos;
+
+    [Header("Bolsas")]
+    [SerializeField] private List<GameObject> bolsas;
+
+    [Header("Estaciones")]
+    [SerializeField] private List<GameObject> estaciones;
+
 
     public void AplicarDificultad(GameSession.Difficulty dificultad)
     {
-        // Desactivamos todos primero
-        foreach (var obs in obstaculos)
-            obs.SetActive(false);
+        // Desactivar todos primero
+        SetAllInactive(obstaculos);
+        SetAllInactive(bolsas);
+        SetAllInactive(estaciones);
 
-        // Definimos porcentaje según dificultad
-        float porcentaje = dificultad switch
+        // Definir porcentaje según dificultad
+        float porcentajeObs = dificultad switch
         {
-            GameSession.Difficulty.Easy => 0.4f,
+            GameSession.Difficulty.Easy => 0.4f, // menos obstáculos
             GameSession.Difficulty.Normal => 0.7f,
-            GameSession.Difficulty.Hard => 1f,
+            GameSession.Difficulty.Hard => 1f,   // todos los obstáculos
             _ => 1f
         };
 
-        int cantidad = Mathf.RoundToInt(obstaculos.Count * porcentaje);
+        float porcentajeBolsas = dificultad switch
+        {
+            GameSession.Difficulty.Easy => 1f,   // muchas bolsas
+            GameSession.Difficulty.Normal => 0.7f,
+            GameSession.Difficulty.Hard => 0.4f, // pocas bolsas
+            _ => 1f
+        };
 
-        // Elegimos aleatoriamente los que se activan
-        List<GameObject> copia = new List<GameObject>(obstaculos);
+        float porcentajeEstaciones = dificultad switch
+        {
+            GameSession.Difficulty.Easy => 1f,   // todas activas
+            GameSession.Difficulty.Normal => 0.7f,
+            GameSession.Difficulty.Hard => 0.5f, // menos estaciones
+            _ => 1f
+        };
 
-        for (int i = 0; i < cantidad; i++)
+        // Aplicar lógica de activación
+        ActivarAleatorios(obstaculos, porcentajeObs);
+        ActivarAleatorios(bolsas, porcentajeBolsas);
+        ActivarAleatorios(estaciones, porcentajeEstaciones);
+    }
+
+    private void SetAllInactive(List<GameObject> lista)
+    {
+        foreach (var go in lista)
+            if (go != null) go.SetActive(false);
+    }
+
+    private void ActivarAleatorios(List<GameObject> lista, float porcentaje)
+    {
+        int cantidad = Mathf.RoundToInt(lista.Count * porcentaje);
+        List<GameObject> copia = new List<GameObject>(lista);
+
+        for (int i = 0; i < cantidad && copia.Count > 0; i++)
         {
             int index = Random.Range(0, copia.Count);
             copia[index].SetActive(true);

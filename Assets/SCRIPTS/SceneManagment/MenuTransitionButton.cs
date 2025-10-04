@@ -17,6 +17,7 @@ public class MenuTransitionButton : MonoBehaviour
     /// </summary>
     public void ActivateMenu()
     {
+        Debug.Log("Botón Return presionado, target: " + targetMenu?.name);
         if (targetMenu != null)
             GameEvents.TriggerActivateMenu(targetMenu);
     }
